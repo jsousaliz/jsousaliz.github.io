@@ -3,6 +3,8 @@ import type { ImageMetadata } from 'astro';
 import daikitExample from '@/assets/images/daikit-example.png';
 import daikitLogo from '@/assets/images/daikit-logo.svg';
 import amqpPerformance from '@/assets/images/delphi-amqp-core-performance.png';
+import deskprompterApp from '@/assets/images/deskprompter-app.png';
+import deskprompterLogo from '@/assets/images/deskprompter-logo.svg';
 
 export type ProjectDiagram =
   'providers' | 'amqp-stack' | 'capture' | 'portfolio-flow';
@@ -163,9 +165,9 @@ export const projects: Project[] = [
     eyebrow: 'Windows',
     meta: 'Delphi 12',
     summary:
-      'Teleprompter local cujo roteiro pode permanecer visível para o apresentador sem aparecer em capturas compatíveis do OBS.',
+      'Teleprompter local cujo roteiro pode permanecer visível para o apresentador sem aparecer no OBS Studio.',
     highlights: [
-      'Validado com OBS Studio',
+      'OBS Studio e Print Screen',
       'Rolagem automática',
       'Biblioteca de roteiros',
       'Offline',
@@ -180,8 +182,8 @@ export const projects: Project[] = [
       {
         title: 'Visível apenas para o apresentador',
         paragraphs: [
-          'A aplicação utiliza SetWindowDisplayAffinity, uma API do Windows que permite excluir a janela de mecanismos de captura compatíveis. Validei o comportamento no OBS em captura de janela e da tela inteira.',
-          'A proteção depende do suporte do capturador. O aplicativo informa seu estado para que o usuário possa confirmar o comportamento antes da gravação.',
+          'A aplicação utiliza SetWindowDisplayAffinity, uma API do Windows que permite excluir a janela de mecanismos de captura compatíveis. Validei o comportamento no OBS Studio, em captura de janela e da tela inteira, e também com o Print Screen.',
+          'Outros aplicativos compatíveis com esse recurso do Windows também podem ocultar a janela. Como o comportamento depende do método de captura, o aplicativo informa o estado da proteção para que o usuário possa validá-la antes da gravação ou apresentação.',
         ],
       },
       {
@@ -194,7 +196,7 @@ export const projects: Project[] = [
         title: 'Arquitetura e validação',
         paragraphs: [
           'Domínio, casos de uso, infraestrutura e interface VCL permanecem separados. SQLite e FireDAC cuidam da persistência local, enquanto contratos isolam rolagem e proteção contra captura.',
-          'Além de revisão, compilação e testes, os comportamentos ligados à VCL e à API do Windows foram verificados manualmente no OBS Studio.',
+          'Além de revisão, compilação e testes, os comportamentos ligados à VCL e à API do Windows foram verificados manualmente no OBS Studio e com o Print Screen.',
         ],
       },
     ],
@@ -207,7 +209,13 @@ export const projects: Project[] = [
       'DUnitX',
     ],
     diagram: 'capture',
-    repositoryStatus: 'Repositório público em preparação',
+    logo: deskprompterLogo,
+    image: deskprompterApp,
+    imageAlt:
+      'Tela principal do Deskprompter com biblioteca de roteiros, controles de leitura e área de apresentação',
+    imageCaption:
+      'Tela principal com organização dos roteiros, controles de apresentação e personalização da leitura.',
+    repository: 'https://github.com/jsousaliz/deskprompter',
   },
   {
     slug: 'portfolio',
