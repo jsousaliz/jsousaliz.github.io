@@ -9,7 +9,7 @@ const assets = [
   },
   {
     source: 'public/og-card.svg',
-    target: 'public/og-card.png',
+    target: 'public/og-card-v2.png',
     width: 1200,
     height: 630,
   },

@@ -167,10 +167,10 @@ export default function MagicBall() {
     <div className="magic-experience">
       <div className="magic-experience__copy">
         <p className="magic-experience__label">Mystic Coffee</p>
-        <h2 id="mystic-coffee-title">Tem uma pergunta importante?</h2>
+        <h2 id="mystic-coffee-title">Sim, não ou talvez?</h2>
         <p className="magic-experience__lead">
-          Pense em uma pergunta e sacuda para descobrir a resposta. Funciona
-          ainda melhor se você falar em voz alta.
+          Pense em uma pergunta de sim ou não. Sacuda a bola e deixe o café
+          responder.
         </p>
         <button
           className="magic-experience__action"
@@ -212,6 +212,7 @@ export default function MagicBall() {
                 src="/coffee-cup.svg"
                 alt=""
                 aria-hidden="true"
+                draggable={false}
               />
             )}
 
@@ -238,6 +239,7 @@ export default function MagicBall() {
                   src="/coffee-cup.svg"
                   alt=""
                   aria-hidden="true"
+                  draggable={false}
                 />
                 <span className="magic-orbit__answer">{answer}</span>
               </span>

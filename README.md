@@ -91,7 +91,7 @@ npm run check            verifica Astro e TypeScript
 npm test                 executa os testes unitários
 npm run build            valida e gera o site estático em dist/
 npm run preview          abre localmente o resultado do build
-npm run assets:generate  recria favicon.png e og-card.png com Sharp
+npm run assets:generate  recria favicon.png e og-card-v2.png com Sharp
 npm run format           formata os arquivos do projeto
 npm run validate         verifica formatação, testes, tipos e build
 ```

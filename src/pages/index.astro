@@ -17,7 +17,7 @@ import '@/styles/home.css';
 
 const title = 'Jean Sousa Liz | Software Developer';
 const description =
-  'Portfólio profissional de Jean Sousa Liz, Software Developer especialista em Delphi e integrações.';
+  'Portfólio profissional de Jean Sousa Liz, Software Developer';
 const completedCourses = courses.filter(
   (course) => course.status === 'completed',
 );
@@ -631,4 +631,37 @@ const inProgressCourses = courses.filter(
 
   <ScrollEnhancements />
   <SectionNavigator />
+
+  <script>
+    for (const timeline of document.querySelectorAll<HTMLElement>(
+      '.timeline',
+    )) {
+      const entries = Array.from(
+        timeline.querySelectorAll<HTMLDetailsElement>('.timeline__item'),
+      );
+
+      for (const entry of entries) {
+        const summary = entry.querySelector<HTMLElement>(':scope > summary');
+        if (!summary) continue;
+
+        summary.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          const willOpen = !entry.open;
+          const positionBefore = entry.getBoundingClientRect().top;
+
+          for (const otherEntry of entries) otherEntry.open = false;
+          entry.open = willOpen;
+
+          requestAnimationFrame(() => {
+            const positionAfter = entry.getBoundingClientRect().top;
+            window.scrollBy({
+              top: positionAfter - positionBefore,
+              behavior: 'instant',
+            });
+          });
+        });
+      }
+    }
+  </script>
 </BaseLayout>
