@@ -221,7 +221,7 @@ export const projects: Project[] = [
     slug: 'portfolio',
     name: 'Este portfólio',
     eyebrow: 'Você está usando este projeto agora',
-    meta: 'Astro · TypeScript',
+    meta: 'Astro · React · TypeScript',
     summary:
       'Portfólio profissional construído por entrevistas, aprovações incrementais e implementação pública em uma página única.',
     highlights: [
@@ -240,7 +240,7 @@ export const projects: Project[] = [
       {
         title: 'Decisões de implementação',
         paragraphs: [
-          'Astro gera uma página estática leve, TypeScript protege as interações e o CSS autoral mantém a identidade visual sem depender de uma biblioteca de componentes.',
+          'Astro gera uma página estática leve, enquanto React é usado na experiência interativa da Mystic Coffee. TypeScript protege as interações e o CSS autoral mantém a identidade visual sem depender de uma biblioteca de componentes.',
           'A navegação por âncoras, os componentes expansíveis e o carrossel foram pensados para funcionar também por teclado e com redução de movimento.',
         ],
       },
@@ -259,6 +259,7 @@ export const projects: Project[] = [
     ],
     technologies: [
       'Astro',
+      'React',
       'TypeScript',
       'CSS',
       'Vitest',
