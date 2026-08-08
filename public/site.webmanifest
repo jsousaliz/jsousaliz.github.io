@@ -1,0 +1,17 @@
+{
+  "name": "Jean Sousa Liz | Software Developer",
+  "short_name": "Jean Sousa Liz",
+  "description": "Portfólio profissional de Jean Sousa Liz, Software Developer especialista em Delphi e integrações.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f1e8",
+  "theme_color": "#17211c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

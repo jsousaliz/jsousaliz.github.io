@@ -1,0 +1,262 @@
+<nav
+  class="section-navigator"
+  aria-label="Navegação entre seções"
+  data-section-navigator
+  data-hidden="true"
+>
+  <button class="section-navigator__button" type="button" data-section-previous>
+    <span aria-hidden="true">↑</span>
+    <span class="section-navigator__tooltip" data-previous-label
+      >Seção anterior</span
+    >
+  </button>
+  <span class="section-navigator__divider" aria-hidden="true"></span>
+  <button class="section-navigator__button" type="button" data-section-next>
+    <span aria-hidden="true">↓</span>
+    <span class="section-navigator__tooltip" data-next-label>Próxima seção</span
+    >
+  </button>
+</nav>
+
+<script>
+  const navigator = document.querySelector<HTMLElement>(
+    '[data-section-navigator]',
+  );
+  const previousButton = navigator?.querySelector<HTMLButtonElement>(
+    '[data-section-previous]',
+  );
+  const nextButton = navigator?.querySelector<HTMLButtonElement>(
+    '[data-section-next]',
+  );
+  const previousLabel = navigator?.querySelector<HTMLElement>(
+    '[data-previous-label]',
+  );
+  const nextLabel = navigator?.querySelector<HTMLElement>('[data-next-label]');
+  const mobileQuery = matchMedia('(max-width: 47.99rem)');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>('main > section'),
+  );
+  const sectionLabels: Record<string, string> = {
+    inicio: 'Início',
+    sobre: 'Sobre',
+    trajetoria: 'Trajetória',
+    especialidades: 'Especialidades',
+    projetos: 'Projetos',
+    'magic-ball': 'Mystic Coffee',
+    recomendacoes: 'Recomendações',
+    aprendizado: 'Aprendizado',
+    contato: 'Contato',
+  };
+
+  let currentIndex = 0;
+  let updateRequested = false;
+
+  function sectionKey(section: HTMLElement): string {
+    return section.id || section.dataset.navigationSection || '';
+  }
+
+  function sectionTarget(section: HTMLElement): HTMLElement {
+    return document.getElementById(sectionKey(section)) || section;
+  }
+
+  function labelFor(index: number): string {
+    const section = sections[index];
+    return section ? sectionLabels[sectionKey(section)] || 'seção' : 'seção';
+  }
+
+  function navigateTo(index: number): void {
+    const section = sections[index];
+    if (!section) return;
+    sectionTarget(section).scrollIntoView({
+      behavior: reducedMotion.matches ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  }
+
+  function updateNavigator(): void {
+    updateRequested = false;
+    if (!navigator || sections.length === 0) return;
+
+    const headerHeight =
+      document
+        .querySelector<HTMLElement>('[data-site-header]')
+        ?.getBoundingClientRect().height || 0;
+    const referenceLine = headerHeight + window.innerHeight * 0.25;
+
+    currentIndex = 0;
+    sections.forEach((section, index) => {
+      if (section.getBoundingClientRect().top <= referenceLine) {
+        currentIndex = index;
+      }
+    });
+
+    const currentSection = sections[currentIndex];
+    if (!currentSection) return;
+
+    const isMobile = mobileQuery.matches;
+    const atStart = currentIndex === 0;
+    const atEnd = currentIndex === sections.length - 1;
+
+    navigator.dataset.hidden = 'false';
+    navigator.setAttribute('aria-hidden', 'false');
+
+    if (previousButton) {
+      const label = isMobile
+        ? atStart
+          ? 'Você está no início'
+          : 'Voltar ao início'
+        : atStart
+          ? 'Você está na primeira seção'
+          : `Ir para ${labelFor(currentIndex - 1)}`;
+      previousButton.ariaLabel = label;
+      previousButton.disabled = atStart;
+      if (previousLabel) previousLabel.textContent = label;
+    }
+
+    if (nextButton) {
+      const label = atEnd
+        ? 'Você está na última seção'
+        : `Ir para ${labelFor(currentIndex + 1)}`;
+      nextButton.ariaLabel = label;
+      nextButton.disabled = atEnd;
+      nextButton.tabIndex = isMobile ? -1 : 0;
+      if (nextLabel) nextLabel.textContent = label;
+    }
+  }
+
+  function requestUpdate(): void {
+    if (updateRequested) return;
+    updateRequested = true;
+    requestAnimationFrame(updateNavigator);
+  }
+
+  previousButton?.addEventListener('click', () => {
+    navigateTo(mobileQuery.matches ? 0 : currentIndex - 1);
+  });
+  nextButton?.addEventListener('click', () => navigateTo(currentIndex + 1));
+  addEventListener('scroll', requestUpdate, { passive: true });
+  addEventListener('resize', requestUpdate);
+  mobileQuery.addEventListener('change', updateNavigator);
+  updateNavigator();
+</script>
+
+<style>
+  .section-navigator {
+    position: fixed;
+    z-index: 40;
+    top: 50%;
+    right: clamp(0.75rem, 2vw, 1.5rem);
+    display: grid;
+    padding: 0.3rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+    box-shadow: var(--shadow-sm);
+    opacity: 1;
+    backdrop-filter: blur(0.75rem);
+    transform: translateY(-50%);
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .section-navigator[data-hidden='true'] {
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(0.5rem, -50%);
+  }
+
+  .section-navigator__button {
+    position: relative;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    place-items: center;
+    transition:
+      background var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .section-navigator__button:hover,
+  .section-navigator__button:focus-visible {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .section-navigator__button:disabled {
+    color: var(--color-border-strong);
+    cursor: default;
+  }
+
+  .section-navigator__button:disabled:hover {
+    background: transparent;
+  }
+
+  .section-navigator__divider {
+    width: 1.25rem;
+    height: 1px;
+    margin-inline: auto;
+    background: var(--color-border);
+  }
+
+  .section-navigator__tooltip {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.65rem);
+    width: max-content;
+    max-width: 13rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-text);
+    color: var(--color-background);
+    font-size: var(--text-xs);
+    font-weight: 650;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(0.3rem, -50%);
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .section-navigator__button:hover .section-navigator__tooltip,
+  .section-navigator__button:focus-visible .section-navigator__tooltip {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+
+  @media (max-width: 47.99rem) {
+    .section-navigator {
+      top: auto;
+      right: var(--space-4);
+      bottom: var(--space-4);
+      transform: none;
+    }
+
+    .section-navigator[data-hidden='true'] {
+      transform: translateY(0.5rem);
+    }
+
+    .section-navigator__divider,
+    [data-section-next] {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-navigator,
+    .section-navigator__button,
+    .section-navigator__tooltip {
+      transition: none;
+    }
+  }
+</style>

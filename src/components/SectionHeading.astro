@@ -1,0 +1,77 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  intro?: string;
+  light?: boolean;
+  headingId?: string;
+  anchorId?: string;
+}
+
+const {
+  number,
+  title,
+  intro,
+  light = false,
+  headingId,
+  anchorId,
+} = Astro.props;
+---
+
+<header
+  id={anchorId}
+  class:list={['section-heading', { 'section-heading--light': light }]}
+>
+  <p class="eyebrow"><span>{number}</span> seção</p>
+  <h2 id={headingId}>{title}</h2>
+  {intro && <p class="section-heading__intro">{intro}</p>}
+</header>
+
+<style>
+  .section-heading {
+    display: grid;
+    max-width: 52rem;
+    gap: var(--space-4);
+    scroll-margin-top: var(--space-6);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow span {
+    color: var(--color-accent);
+  }
+
+  h2 {
+    max-width: 18ch;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 560;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+  }
+
+  .section-heading__intro {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .section-heading--light .eyebrow,
+  .section-heading--light .section-heading__intro {
+    color: var(--section-text-muted, var(--color-text-muted));
+  }
+
+  .section-heading--light h2 {
+    color: var(--section-text, var(--color-text));
+  }
+</style>

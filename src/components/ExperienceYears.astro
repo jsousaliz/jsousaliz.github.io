@@ -1,0 +1,44 @@
+---
+type SupportedLocale = 'pt-BR' | 'en';
+
+interface Props {
+  locale?: SupportedLocale;
+}
+
+const { locale = 'pt-BR' } = Astro.props;
+
+const fallbackByLocale: Record<SupportedLocale, string> = {
+  'pt-BR': 'Experiência profissional desde 2010',
+  en: 'Professional experience since 2010',
+};
+---
+
+<span data-experience-years data-locale={locale}>
+  <span data-experience-copy>{fallbackByLocale[locale]}</span>
+</span>
+
+<script>
+  import {
+    PROFESSIONAL_EXPERIENCE_START,
+    calculateCompletedYears,
+  } from '@/lib/experience';
+
+  const elements = document.querySelectorAll<HTMLElement>(
+    '[data-experience-years]',
+  );
+
+  for (const element of elements) {
+    const copy = element.querySelector<HTMLElement>('[data-experience-copy]');
+    const locale = element.dataset.locale;
+
+    if (!copy) {
+      continue;
+    }
+
+    const years = calculateCompletedYears(PROFESSIONAL_EXPERIENCE_START);
+    copy.textContent =
+      locale === 'en'
+        ? `${years} years of experience`
+        : `${years} anos de experiência`;
+  }
+</script>

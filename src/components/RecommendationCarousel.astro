@@ -1,0 +1,455 @@
+---
+import { recommendations } from '@/data/recommendations';
+---
+
+<div
+  class="recommendations-carousel"
+  data-recommendations-carousel
+  aria-roledescription="carrossel"
+  aria-label="Recomendações profissionais"
+>
+  <div
+    class="recommendations-viewport"
+    data-carousel-viewport
+    tabindex="0"
+    aria-label="Recomendações. Use as setas do teclado para navegar."
+  >
+    <div class="recommendations-track" role="list">
+      {
+        recommendations.map((recommendation, index) => (
+          <article
+            class="recommendation-card"
+            id={`recommendation-${index + 1}`}
+            role="listitem"
+            aria-label={`Recomendação ${index + 1} de ${recommendations.length}`}
+            data-carousel-card
+          >
+            <details class="recommendation-details">
+              <summary>
+                <span class="recommendation-excerpt">
+                  “{recommendation.excerpt}”
+                </span>
+                <span class="recommendation-details__action">
+                  <span class="recommendation-details__open">
+                    Ler recomendação completa
+                  </span>
+                  <span class="recommendation-details__close">
+                    Ocultar recomendação
+                  </span>
+                </span>
+              </summary>
+              <blockquote class="recommendation-copy">
+                {recommendation.paragraphs.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </blockquote>
+            </details>
+            <div class="recommendation-author">
+              <span class="recommendation-author__avatar" aria-hidden="true">
+                {recommendation.initials}
+              </span>
+              <div>
+                <strong>{recommendation.name}</strong>
+                <span>{recommendation.area}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <p class="carousel-status" aria-live="polite" aria-atomic="true">
+      <span data-carousel-current>1</span> / {recommendations.length}
+    </p>
+
+    <div class="carousel-dots" aria-label="Selecionar recomendação">
+      {
+        recommendations.map((recommendation, index) => (
+          <button
+            type="button"
+            aria-label={`Ir para a recomendação de ${recommendation.name}`}
+            aria-controls={`recommendation-${index + 1}`}
+            aria-current={index === 0 ? 'true' : undefined}
+            data-carousel-dot
+          />
+        ))
+      }
+    </div>
+
+    <div class="carousel-arrows">
+      <button
+        type="button"
+        aria-label="Recomendação anterior"
+        data-carousel-previous
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+      <button
+        type="button"
+        aria-label="Próxima recomendação"
+        data-carousel-next
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { clampCarouselIndex, findClosestOffsetIndex } from '@/lib/carousel';
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  for (const carousel of document.querySelectorAll<HTMLElement>(
+    '[data-recommendations-carousel]',
+  )) {
+    const viewport = carousel.querySelector<HTMLElement>(
+      '[data-carousel-viewport]',
+    );
+    const cards = Array.from(
+      carousel.querySelectorAll<HTMLElement>('[data-carousel-card]'),
+    );
+    const dots = Array.from(
+      carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]'),
+    );
+    const previous = carousel.querySelector<HTMLButtonElement>(
+      '[data-carousel-previous]',
+    );
+    const next = carousel.querySelector<HTMLButtonElement>(
+      '[data-carousel-next]',
+    );
+    const current = carousel.querySelector<HTMLElement>(
+      '[data-carousel-current]',
+    );
+    const recommendationDetails = Array.from(
+      carousel.querySelectorAll<HTMLDetailsElement>('.recommendation-details'),
+    );
+
+    if (!viewport || cards.length === 0) continue;
+    const carouselViewport = viewport;
+
+    let activeIndex = 0;
+    let animationFrame = 0;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+
+    function update(index: number): void {
+      activeIndex = clampCarouselIndex(index, cards.length);
+      if (current) current.textContent = String(activeIndex + 1);
+      previous?.toggleAttribute('disabled', activeIndex === 0);
+      next?.toggleAttribute('disabled', activeIndex === cards.length - 1);
+
+      for (const [dotIndex, dot] of dots.entries()) {
+        if (dotIndex === activeIndex) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      }
+    }
+
+    function goTo(index: number): void {
+      const targetIndex = clampCarouselIndex(index, cards.length);
+      const targetDetails = cards[targetIndex]?.querySelector('details');
+      for (const details of recommendationDetails) {
+        if (details !== targetDetails) details.removeAttribute('open');
+      }
+      carouselViewport.scrollTo({
+        left: cards[targetIndex]!.offsetLeft,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+      update(targetIndex);
+    }
+
+    function updateFromScroll(): void {
+      const closestIndex = findClosestOffsetIndex(
+        cards.map((card) => card.offsetLeft),
+        carouselViewport.scrollLeft,
+      );
+      update(closestIndex);
+    }
+
+    previous?.addEventListener('click', () => goTo(activeIndex - 1));
+    next?.addEventListener('click', () => goTo(activeIndex + 1));
+    dots.forEach((dot, index) =>
+      dot.addEventListener('click', () => goTo(index)),
+    );
+    recommendationDetails.forEach((selectedDetails) =>
+      selectedDetails.addEventListener('toggle', () => {
+        if (!selectedDetails.open) return;
+        for (const details of recommendationDetails) {
+          if (details !== selectedDetails) details.removeAttribute('open');
+        }
+      }),
+    );
+
+    carouselViewport.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') goTo(activeIndex - 1);
+      else if (event.key === 'ArrowRight') goTo(activeIndex + 1);
+      else if (event.key === 'Home') goTo(0);
+      else if (event.key === 'End') goTo(cards.length - 1);
+      else return;
+      event.preventDefault();
+    });
+
+    carouselViewport.addEventListener('scroll', () => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(updateFromScroll);
+    });
+
+    carouselViewport.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      if (
+        event.target instanceof Element &&
+        event.target.closest('summary, a, button, input, select, textarea')
+      )
+        return;
+      dragging = true;
+      dragStartX = event.clientX;
+      dragStartScroll = carouselViewport.scrollLeft;
+      carouselViewport.setPointerCapture(event.pointerId);
+      carouselViewport.dataset.dragging = 'true';
+    });
+
+    carouselViewport.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      carouselViewport.scrollLeft =
+        dragStartScroll - (event.clientX - dragStartX);
+    });
+
+    function finishDragging(event: PointerEvent): void {
+      if (!dragging) return;
+      dragging = false;
+      carouselViewport.releasePointerCapture(event.pointerId);
+      delete carouselViewport.dataset.dragging;
+      updateFromScroll();
+    }
+
+    carouselViewport.addEventListener('pointerup', finishDragging);
+    carouselViewport.addEventListener('pointercancel', finishDragging);
+    window.addEventListener('resize', updateFromScroll);
+    update(0);
+  }
+</script>
+
+<style>
+  .recommendations-carousel {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .recommendations-viewport {
+    overflow-x: auto;
+    padding: 0.25rem;
+    cursor: grab;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    scroll-snap-type: inline mandatory;
+  }
+
+  .recommendations-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recommendations-viewport[data-dragging='true'] {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+
+  .recommendations-track {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .recommendations-track::after {
+    content: '';
+    flex: 0 0 calc(50% - var(--space-2));
+  }
+
+  .recommendation-card {
+    display: grid;
+    min-height: 18rem;
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    align-content: space-between;
+    flex: 0 0 calc(50% - var(--space-2));
+    gap: var(--space-5);
+    scroll-snap-align: start;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .recommendation-copy,
+  .recommendation-excerpt {
+    font-family: var(--font-body);
+    font-size: var(--text-quote);
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+
+  .recommendation-copy {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .recommendation-copy p {
+    white-space: pre-line;
+  }
+
+  .recommendation-copy p:first-child::before {
+    content: '“';
+  }
+
+  .recommendation-copy p:last-child::after {
+    content: '”';
+  }
+
+  .recommendation-details summary {
+    display: grid;
+    cursor: pointer;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  .recommendation-details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .recommendation-details__action {
+    width: fit-content;
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+
+  .recommendation-details__close {
+    display: none;
+  }
+
+  .recommendation-details[open] summary {
+    margin-bottom: var(--space-4);
+  }
+
+  .recommendation-details[open] .recommendation-excerpt,
+  .recommendation-details[open] .recommendation-details__open {
+    display: none;
+  }
+
+  .recommendation-details[open] .recommendation-details__close {
+    display: inline;
+  }
+
+  .recommendation-author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .recommendation-author__avatar {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    place-items: center;
+  }
+
+  .recommendation-author div {
+    display: grid;
+  }
+
+  .recommendation-author span {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .carousel-controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .carousel-status {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .carousel-dots button {
+    width: 0.55rem;
+    height: 0.55rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+    cursor: pointer;
+  }
+
+  .carousel-dots button[aria-current='true'] {
+    background: var(--color-accent);
+    transform: scale(1.35);
+  }
+
+  .carousel-arrows {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .carousel-arrows button {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    place-items: center;
+  }
+
+  .carousel-arrows button:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  @media (max-width: 47.99rem) {
+    .recommendations-track::after {
+      display: none;
+    }
+
+    .recommendation-card {
+      min-height: 20rem;
+      padding: var(--space-5);
+      flex-basis: 100%;
+    }
+
+    .carousel-controls {
+      grid-template-columns: 1fr auto;
+    }
+
+    .carousel-dots {
+      display: none;
+    }
+  }
+</style>

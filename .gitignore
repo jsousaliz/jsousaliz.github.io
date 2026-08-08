@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.npm-cache/
+
+# Generated files
+dist/
+.astro/
+coverage/
+*.tsbuildinfo
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Tooling and operating system
+.DS_Store
+Thumbs.db
+*.log
+
+# Planejamento do projeto
+plan/

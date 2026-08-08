@@ -1,0 +1,52 @@
+<script>
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealElements =
+    document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+  document.documentElement.dataset.enhanced = 'true';
+
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    for (const element of revealElements) element.dataset.visible = 'true';
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.visible = 'true';
+          observer.unobserve(entry.target);
+        }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
+    );
+
+    for (const element of revealElements) revealObserver.observe(element);
+  }
+
+  const sections = document.querySelectorAll<HTMLElement>(
+    'main section[data-navigation-section]',
+  );
+  const navigationLinks = document.querySelectorAll<HTMLAnchorElement>(
+    '[data-navigation-link]',
+  );
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      const visibleEntry = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visibleEntry) return;
+
+      for (const link of navigationLinks) {
+        const sectionId = (visibleEntry.target as HTMLElement).dataset
+          .navigationSection;
+        const isCurrent = link.hash === `#${sectionId}`;
+        if (isCurrent) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+    },
+    { rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.2, 0.5] },
+  );
+
+  for (const section of sections) sectionObserver.observe(section);
+</script>

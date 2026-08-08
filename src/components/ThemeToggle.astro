@@ -1,0 +1,103 @@
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label="Ativar tema escuro"
+  aria-pressed="false"
+  data-theme-toggle
+>
+  <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="3.5"></circle>
+    <path
+      d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"
+    ></path>
+  </svg>
+  <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20.3 15.6A8.5 8.5 0 0 1 8.4 3.7 8.5 8.5 0 1 0 20.3 15.6Z"></path>
+  </svg>
+</button>
+
+<script>
+  const toggles = document.querySelectorAll<HTMLButtonElement>(
+    '[data-theme-toggle]',
+  );
+
+  function currentTheme(): 'light' | 'dark' {
+    return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  }
+
+  function synchronizeToggles(theme: 'light' | 'dark'): void {
+    for (const toggle of toggles) {
+      const willActivateDark = theme === 'light';
+      toggle.ariaPressed = String(theme === 'dark');
+      toggle.ariaLabel = willActivateDark
+        ? 'Ativar tema escuro'
+        : 'Ativar tema claro';
+    }
+  }
+
+  synchronizeToggles(currentTheme());
+
+  for (const toggle of toggles) {
+    toggle.addEventListener('click', () => {
+      const nextTheme = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem('portfolio-theme', nextTheme);
+      synchronizeToggles(nextTheme);
+    });
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    color: var(--color-text);
+    background: var(--color-surface-translucent);
+    cursor: pointer;
+    place-items: center;
+    transition:
+      color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      background-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .theme-toggle svg {
+    grid-area: 1 / 1;
+    width: 1.2rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.75;
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .theme-toggle__moon,
+  :global([data-theme='dark']) .theme-toggle__sun {
+    opacity: 0;
+    transform: rotate(-20deg) scale(0.75);
+  }
+
+  :global([data-theme='dark']) .theme-toggle__moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .theme-toggle svg {
+      transition: none;
+    }
+  }
+</style>

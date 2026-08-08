@@ -1,0 +1,634 @@
+---
+import { Image } from 'astro:assets';
+
+import ExperienceYears from '@/components/ExperienceYears.astro';
+import MagicBall from '@/components/MagicBall';
+import ProjectShowcase from '@/components/ProjectShowcase.astro';
+import RecommendationCarousel from '@/components/RecommendationCarousel.astro';
+import ScrollEnhancements from '@/components/ScrollEnhancements.astro';
+import SectionNavigator from '@/components/SectionNavigator.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import jeanHero from '@/assets/images/jean-hero.jpg';
+import jeanTrilha from '@/assets/images/jean-trilha.jpg';
+import { courses } from '@/data/courses';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '@/styles/home.css';
+
+const title = 'Jean Sousa Liz | Software Developer';
+const description =
+  'Portfólio profissional de Jean Sousa Liz, Software Developer especialista em Delphi e integrações.';
+const completedCourses = courses.filter(
+  (course) => course.status === 'completed',
+);
+const inProgressCourses = courses.filter(
+  (course) => course.status === 'in-progress',
+);
+---
+
+<BaseLayout title={title} description={description}>
+  <SiteHeader />
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero__grid container">
+        <div class="hero__content" data-reveal>
+          <p class="hero__identity">
+            Software Developer · <ExperienceYears />
+          </p>
+          <h1 id="hero-title">
+            Transformo problemas complexos em software simples de entender,
+            manter e evoluir.
+          </h1>
+          <p class="hero__intro">
+            Olá, sou o Jean. Minha especialidade é Delphi, mas meu trabalho
+            nunca ficou preso a uma única stack. Desenvolvendo software desde
+            2010, transformo desafios técnicos em soluções estáveis,
+            performáticas e fáceis de manter.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#trajetoria"
+              >Conheça minha trajetória</a
+            >
+            <a class="button button--secondary" href="#projetos"
+              >Conhecer projetos</a
+            >
+            <a class="button button--secondary" href="#contato"
+              >Entrar em contato</a
+            >
+          </div>
+        </div>
+
+        <div class="hero__portrait" data-reveal>
+          <Image
+            class="hero__portrait-image"
+            src={jeanHero}
+            alt="Jean Sousa Liz sorrindo em um ambiente profissional"
+            format="webp"
+            quality={85}
+            width={576}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+      <span class="scroll-cue" aria-hidden="true">continue explorando</span>
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="sobre"
+      aria-labelledby="sobre-title"
+    >
+      <div class="container">
+        <p class="about__eyebrow eyebrow" id="sobre">
+          <span>01</span> seção
+        </p>
+
+        <h2 class="about__title" id="sobre-title">
+          Código é o meio. Fazer diferença é o que importa.
+        </h2>
+
+        <div class="about__grid">
+          <div class="about__prose" data-reveal>
+            <p>
+              Escolhi a tecnologia ainda na adolescência. Pouco depois de
+              começar a faculdade de Ciência da Computação, um professor
+              percebeu meu interesse e me convidou para trabalhar em sua
+              empresa. Foi assim, de forma simples, que minha carreira começou.
+            </p>
+            <p>
+              Desde 2010, vivi contextos bem diferentes: comecei próximo de
+              clientes, produto e implantação e depois passei a trabalhar em
+              equipes especializadas, com processos e automações bem definidos.
+              Essa transição ampliou minha visão e me deu confiança para
+              aprender a tecnologia que cada problema exigir.
+            </p>
+            <p>
+              Sou calmo, analítico e detalhista. Gosto de código, ambientes e
+              processos organizados, sem transformar qualidade em
+              perfeccionismo. Também gosto de trabalhar em parceria,
+              compartilhar conhecimento e ajudar outros desenvolvedores.
+            </p>
+            <p>
+              Ver uma solução funcionando é uma satisfação. Perceber que ela
+              facilitou o trabalho ou fez diferença na vida de alguém é o que
+              realmente dá sentido ao que faço.
+            </p>
+          </div>
+
+          <div class="about__media" data-reveal>
+            <figure class="about__figure">
+              <Image
+                class="about__image"
+                src={jeanTrilha}
+                alt="Jean durante uma trilha em meio à mata em Santa Catarina"
+                format="webp"
+                quality={80}
+                width={640}
+                loading="lazy"
+              />
+              <figcaption class="about__caption">
+                <h3>Além do código</h3>
+                <p>
+                  Sou pai — meu melhor projeto é minha filha — e, no tempo
+                  livre, gosto de ler, assistir a filmes e séries, cozinhar,
+                  correr e fazer trilhas.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section trajectory"
+      data-navigation-section="trajetoria"
+      aria-labelledby="trajetoria-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="02"
+          anchorId="trajetoria"
+          headingId="trajetoria-title"
+          title="Uma trajetória construindo soluções e ampliando possibilidades."
+          intro="Dois ciclos profissionais com responsabilidades diferentes. Nos detalhes, reuni minhas principais atribuições e algumas entregas que escolhi destacar — não uma lista completa de cada período."
+          light
+        />
+
+        <div class="section__content">
+          <div class="timeline" data-reveal>
+            <details class="timeline__item" name="career-period">
+              <summary>
+                <span class="timeline__period"
+                  >Janeiro de 2010 — janeiro de 2021</span
+                >
+                <h3>ASP Softwares</h3>
+                <p>
+                  Onde construí minha base profissional acompanhando código,
+                  produto e a realidade de quem utilizava o sistema.
+                </p>
+                <span class="timeline__toggle" aria-hidden="true">
+                  <span class="timeline__toggle-open">Ver detalhes</span>
+                  <span class="timeline__toggle-close">Ocultar detalhes</span>
+                </span>
+              </summary>
+
+              <div class="career-details">
+                <section class="career-role">
+                  <h4>Atuação no período</h4>
+                  <ul>
+                    <li>
+                      Desenvolvimento e evolução de sistemas fiscais,
+                      comerciais, industriais e de gestão de pessoas.
+                    </li>
+                    <li>
+                      Levantamento de necessidades diretamente com clientes.
+                    </li>
+                    <li>Implantação, configuração e suporte dos sistemas.</li>
+                    <li>
+                      Correção de falhas, melhoria de performance e refatoração
+                      de código legado.
+                    </li>
+                  </ul>
+                </section>
+
+                <p class="career-selection-label">Entregas que destaco</p>
+
+                <section class="career-context">
+                  <h4>Domínio fiscal</h4>
+                  <p>
+                    Trabalhei com emissão de cupom fiscal, NF-e e SPED Fiscal,
+                    além de soluções comerciais, industriais e de gestão de
+                    pessoas.
+                  </p>
+                  <div class="career-evidence">
+                    <p>
+                      <strong>4 homologações do PAF-ECF</strong>
+                      Implementação de requisitos, preparação do sistema, acompanhamento
+                      dos testes e correção de inconformidades.
+                    </p>
+                    <p>
+                      <strong>Módulo compartilhado de NF-e</strong>
+                      Solução reutilizada por diferentes sistemas da empresa.
+                    </p>
+                  </div>
+                </section>
+              </div>
+            </details>
+
+            <details class="timeline__item" name="career-period">
+              <summary>
+                <span class="timeline__period"
+                  >Fevereiro de 2021 — abril de 2026</span
+                >
+                <h3>Softplan</h3>
+                <p>
+                  Uma fase marcada por engenharia estruturada, sistemas de
+                  grande porte, integrações judiciais e entregas automatizadas.
+                </p>
+                <span class="timeline__toggle" aria-hidden="true">
+                  <span class="timeline__toggle-open">Ver detalhes</span>
+                  <span class="timeline__toggle-close">Ocultar detalhes</span>
+                </span>
+              </summary>
+
+              <div class="career-details">
+                <section class="career-role">
+                  <h4>Atuação no período</h4>
+                  <ul>
+                    <li>
+                      Desenvolvimento e evolução de sistemas de gestão de
+                      processos judiciais e extrajudiciais.
+                    </li>
+                    <li>
+                      Integrações com APIs REST, Web Services e serviços
+                      externos.
+                    </li>
+                    <li>
+                      Análise de regras de negócio e investigação de problemas
+                      em ambientes produtivos.
+                    </li>
+                    <li>
+                      Participação em revisões de código, definições técnicas e
+                      decisões de arquitetura.
+                    </li>
+                    <li>
+                      Atuação com CI/CD, automação de build e deploy, além de
+                      documentação e repasses técnicos.
+                    </li>
+                  </ul>
+                </section>
+
+                <p class="career-selection-label">Entregas que destaco</p>
+
+                <section class="career-context career-context--featured">
+                  <h4>Domicílio Judicial Eletrônico</h4>
+                  <p>
+                    Implementei a nova integração mantendo compatibilidade com o
+                    modelo MNI. Reaproveitei um componente de comunicação com
+                    APIs, adaptei os contratos e utilizei a integração anterior
+                    para enriquecer dados ausentes na nova resposta.
+                  </p>
+                  <div class="career-deadlines">
+                    <p><strong>20 dias</strong> pronta para testes</p>
+                    <p><strong>30 dias</strong> primeira versão gerada</p>
+                  </div>
+                </section>
+
+                <section class="career-context">
+                  <h4>Performance e automação</h4>
+                  <div class="career-evidence">
+                    <p>
+                      <strong>2 dias → 1 hora</strong>
+                      Importação de tabelas do CNJ em estados com muitos foros.
+                    </p>
+                    <p>
+                      <strong>45 → 22 minutos</strong>
+                      Redução no processamento completo de um pipeline de integração
+                      contínua.
+                    </p>
+                  </div>
+                </section>
+
+                <section class="career-context">
+                  <h4>Além da stack principal</h4>
+                  <ol class="career-stack-list">
+                    <li>
+                      <strong>Java:</strong> correção de autenticação LDAP.
+                    </li>
+                    <li><strong>React:</strong> evoluções de interface.</li>
+                    <li>
+                      <strong>.NET/C#:</strong> correção de uma consulta que sobrecarregava
+                      o banco de dados.
+                    </li>
+                    <li>
+                      <strong>Python:</strong> ajuste em uma aplicação de pipeline
+                      responsável por medir cobertura de testes.
+                    </li>
+                  </ol>
+                </section>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="especialidades"
+      aria-labelledby="especialidades-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="03"
+          anchorId="especialidades"
+          headingId="especialidades-title"
+          title="Entender primeiro. Construir com clareza. Medir antes de otimizar."
+          intro="Meu trabalho começa antes do código e termina somente depois que a solução foi validada."
+        />
+
+        <div class="section__content">
+          <ol class="process" aria-label="Processo de trabalho" data-reveal>
+            <li>Entender</li>
+            <li>Investigar</li>
+            <li>Implementar</li>
+            <li>Testar</li>
+            <li>Medir</li>
+            <li>Entregar</li>
+          </ol>
+
+          <div class="work-principles" data-reveal>
+            <article>
+              <span>Requisitos</span>
+              <h3>Contexto antes do código</h3>
+              <p>
+                Busco evidências, converso com as pessoas envolvidas e separo o
+                que é urgente do que exige uma solução definitiva.
+              </p>
+            </article>
+            <article>
+              <span>Engenharia</span>
+              <h3>Código confiável</h3>
+              <p>
+                Responsabilidades claras, princípios SOLID e uma estrutura que
+                favoreça leitura, manutenção e testes isolados.
+              </p>
+            </article>
+            <article>
+              <span>Diagnóstico</span>
+              <h3>Medir antes de alterar</h3>
+              <p>
+                Combino logs, debugger, banco de dados e isolamento de hipóteses
+                para encontrar o gargalo real antes de otimizar.
+              </p>
+            </article>
+            <article>
+              <span>Entrega</span>
+              <h3>Qualidade com pragmatismo</h3>
+              <p>
+                Prazo e qualidade são equilibrados pelo valor entregue, com
+                débitos técnicos conscientes e seus efeitos conhecidos.
+              </p>
+            </article>
+          </div>
+
+          <header class="expertise-heading" data-reveal>
+            <h3>Competências técnicas e ferramentas</h3>
+          </header>
+
+          <div class="expertise-groups" data-reveal>
+            <details class="expertise-group">
+              <summary>
+                <span>01</span><h3>Ecossistema Delphi</h3>
+                <p>Delphi · VCL · FireDAC · RTTI</p>
+              </summary>
+              <p>
+                Generics, attributes, componentes, packages, DLLs,
+                <code>TThread</code> e programação concorrente.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>02</span><h3>Dados e performance</h3>
+                <p>PostgreSQL · Oracle · Firebird</p>
+              </summary>
+              <p>
+                SQL, procedures, triggers, transações, migração, transformação e
+                processamento de grandes volumes de dados.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>03</span><h3>Integrações e mensageria</h3>
+                <p>REST · JSON · XML · SOAP · AMQP</p>
+              </summary>
+              <p>
+                RabbitMQ, comunicação assíncrona, LDAP, certificados e
+                assinatura digital.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>04</span><h3>Testes e confiabilidade</h3>
+                <p>DUnit · DUnitX · mocks · profiling</p>
+              </summary>
+              <p>
+                Testes unitários, integração, contrato e performance, cobertura,
+                análise de memória e logs estruturados.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>05</span><h3>Ferramentas complementares</h3>
+                <p>Git · Jira · GitHub Actions</p>
+              </summary>
+              <p>
+                Pipelines, Docker, geração automatizada de versões, controle de
+                cobertura, monitoramento e observabilidade.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>06</span><h3>Inteligência artificial</h3>
+                <p>Planejar · Produzir · Validar · Documentar</p>
+              </summary>
+              <p>
+                IA no planejamento e produção de código. Trabalho dividido em
+                etapas e validado a cada entrega, com testes e documentação.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="projetos"
+      aria-labelledby="projetos-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="04"
+          anchorId="projetos"
+          headingId="projetos-title"
+          title="Projetos que começaram com um problema real."
+          intro="Software criado para ser utilizado, testado e evoluído — com decisões de produto e arquitetura visíveis no código."
+        />
+
+        <div class="section__content">
+          <ProjectShowcase />
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section magic-section"
+      id="magic-ball"
+      aria-labelledby="mystic-coffee-title"
+    >
+      <MagicBall client:visible />
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="recomendacoes"
+      aria-labelledby="recomendacoes-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="05"
+          anchorId="recomendacoes"
+          headingId="recomendacoes-title"
+          title="O que dizem sobre trabalhar comigo."
+          intro="Recomendações publicadas no LinkedIn por pessoas que acompanharam de perto minha atuação técnica, colaboração e forma de entregar."
+        />
+
+        <div class="section__content" data-reveal>
+          <RecommendationCarousel />
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="aprendizado"
+      aria-labelledby="aprendizado-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="06"
+          anchorId="aprendizado"
+          headingId="aprendizado-title"
+          title="Exatas por formação. Tecnologia por escolha."
+        />
+
+        <div class="section__content learning-content">
+          <div class="learning-copy prose" data-reveal>
+            <p>
+              Minha trajetória acadêmica começou no curso de Ciência da
+              Computação da UNIFACVEST. Mais tarde, realizei o sonho de concluir
+              a Licenciatura em Matemática pela UNIPLAC. Essa combinação
+              reforçou algo que sempre fez parte de mim: lógica, organização e
+              gosto por problemas que exigem análise.
+            </p>
+            <p>
+              Continuo aprendendo pela prática e pelo estudo constante:
+              investigo tecnologias, desenvolvo projetos, faço cursos, participo
+              de workshops e leio livros sobre programação. Assim, transformo o
+              conhecimento adquirido em soluções que outras pessoas possam
+              utilizar.
+            </p>
+          </div>
+
+          <div class="courses-layout" data-reveal>
+            <section class="courses-group">
+              <header class="courses-group__heading">
+                <p>Histórico</p>
+                <h3>Cursos concluídos</h3>
+              </header>
+              <ol class="courses-list">
+                {
+                  completedCourses.map((course, index) => (
+                    <li class="course-row">
+                      <span class="course-row__index">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <div class="course-row__content">
+                        <h4>{course.title}</h4>
+                        <div class="course-row__meta">
+                          <span>{course.provider}</span>
+                          {course.period && <time>{course.period}</time>}
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                }
+              </ol>
+            </section>
+
+            <section class="courses-group courses-group--current">
+              <header class="courses-group__heading">
+                <p>Agora</p>
+                <h3>Cursos em andamento</h3>
+              </header>
+              {
+                inProgressCourses.length > 0 ? (
+                  <ol class="courses-list">
+                    {inProgressCourses.map((course, index) => (
+                      <li class="course-row">
+                        <span class="course-row__index">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <div class="course-row__content">
+                          <h4>{course.title}</h4>
+                          <div class="course-row__meta">
+                            <span>{course.provider}</span>
+                            {course.period && <time>{course.period}</time>}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <p class="courses-empty">
+                    Nenhum curso selecionado no momento.
+                  </p>
+                )
+              }
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section contact"
+      data-navigation-section="contato"
+      aria-labelledby="contato-title"
+    >
+      <div id="contato" class="container contact__content" data-reveal>
+        <p class="contact__eyebrow">Contato</p>
+        <h2 id="contato-title">
+          Vamos tomar um café?
+          <span class="contact__coffee" aria-hidden="true">
+            <img src="/coffee-cup.svg" alt="" />
+          </span>
+        </h2>
+        <p>
+          Boas conversas, novas ideias e projetos interessantes ficam ainda
+          melhores com um cafezinho. Se quiser trocar experiências ou conversar
+          sobre desenvolvimento, me encontre no LinkedIn.
+        </p>
+        <div class="contact__actions">
+          <a
+            class="button button--primary"
+            href="https://www.linkedin.com/in/jsousaliz/"
+            target="_blank"
+            rel="noreferrer">Conversar no LinkedIn</a
+          >
+          <a
+            class="button button--secondary"
+            href="https://github.com/jsousaliz"
+            target="_blank"
+            rel="noreferrer">Explorar meu GitHub</a
+          >
+        </div>
+        <p class="location">Santa Catarina, Brasil</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner container">
+      <span>Jean Sousa Liz · Software Developer</span>
+      <span>Construído com Astro, TypeScript e CSS.</span>
+    </div>
+  </footer>
+
+  <ScrollEnhancements />
+  <SectionNavigator />
+</BaseLayout>

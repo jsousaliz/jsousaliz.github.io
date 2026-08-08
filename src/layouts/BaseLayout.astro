@@ -1,0 +1,131 @@
+---
+import '@/styles/fonts.css';
+import '@/styles/tokens.css';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'pt-BR' | 'en';
+}
+
+const { title, description, lang = 'pt-BR' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const socialImageUrl = new URL('/og-card.png', Astro.site);
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jean Sousa Liz',
+  url: canonicalUrl.href,
+  jobTitle: 'Software Developer',
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Santa Catarina',
+    addressCountry: 'BR',
+  },
+  sameAs: [
+    'https://github.com/jsousaliz',
+    'https://www.linkedin.com/in/jsousaliz/',
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#f4f1e8"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0e1512"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="description" content={description} />
+    <meta name="author" content="Jean Sousa Liz" />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Jean Sousa Liz" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Jean Sousa Liz, Software Developer"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta
+      name="twitter:image:alt"
+      content="Jean Sousa Liz, Software Developer"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
+    <script is:inline>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('portfolio-theme');
+          const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+          document.documentElement.dataset.theme =
+            savedTheme === 'light' || savedTheme === 'dark'
+              ? savedTheme
+              : systemTheme;
+        } catch {
+          // The CSS fallback still follows the operating-system preference.
+        }
+      })();
+    </script>
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo" data-skip-link
+      >Pular para o conteúdo</a
+    >
+    <slot />
+    <script>
+      const skipLink = document.querySelector<HTMLElement>('[data-skip-link]');
+
+      document.addEventListener(
+        'keydown',
+        (event) => {
+          if (!skipLink) return;
+          const tabNavigation =
+            event.key === 'Tab' && !event.ctrlKey && !event.metaKey;
+          skipLink.dataset.visible = String(tabNavigation);
+        },
+        true,
+      );
+
+      document.addEventListener(
+        'pointerdown',
+        () => {
+          if (skipLink) skipLink.dataset.visible = 'false';
+        },
+        true,
+      );
+
+      skipLink?.addEventListener('blur', () => {
+        skipLink.dataset.visible = 'false';
+      });
+    </script>
+  </body>
+</html>

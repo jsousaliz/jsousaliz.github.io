@@ -1,0 +1,98 @@
+:root {
+  color-scheme: light;
+
+  --font-display: 'Space Grotesk Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter Variable', Inter, system-ui, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --color-background: #f4f1e8;
+  --color-surface: #fffcf5;
+  --color-surface-translucent: rgb(255 252 245 / 78%);
+  --color-text: #17211c;
+  --color-text-muted: #526058;
+  --color-primary: #176b55;
+  --color-primary-strong: #0f5543;
+  --color-primary-soft: #dbe9e1;
+  --color-accent: #a94f2d;
+  --color-accent-soft: #f1d8ca;
+  --color-border: #d6d4c9;
+  --color-border-strong: #b5bcb5;
+  --color-focus: #176b55;
+
+  --text-xs: clamp(0.72rem, 0.7rem + 0.08vw, 0.78rem);
+  --text-sm: clamp(0.84rem, 0.81rem + 0.12vw, 0.93rem);
+  --text-quote: clamp(0.95rem, 0.92rem + 0.12vw, 1.03rem);
+  --text-base: clamp(1rem, 0.96rem + 0.18vw, 1.12rem);
+  --text-lead: clamp(1.05rem, 1rem + 0.25vw, 1.25rem);
+  --text-lg: clamp(1.15rem, 1.05rem + 0.35vw, 1.4rem);
+  --text-xl: clamp(1.4rem, 1.18rem + 0.75vw, 1.95rem);
+  --text-card-title: clamp(1.65rem, 1.35rem + 1vw, 2.25rem);
+  --text-2xl: clamp(1.8rem, 1.4rem + 1.25vw, 2.7rem);
+  --text-3xl: clamp(2rem, 1.55rem + 1.7vw, 3.25rem);
+  --text-4xl: clamp(2.7rem, 2.05rem + 2.5vw, 4.75rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+  --space-10: 9rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2.25rem;
+
+  --shadow-sm: 0 0.5rem 1.5rem rgb(23 33 28 / 7%);
+  --shadow-lg: 0 1.5rem 4rem rgb(23 33 28 / 14%);
+
+  --duration-fast: 180ms;
+  --duration-standard: 420ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --content-width: 78rem;
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --header-height: 4.75rem;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-background: #0e1512;
+  --color-surface: #16201b;
+  --color-surface-translucent: rgb(22 32 27 / 78%);
+  --color-text: #f4f1e8;
+  --color-text-muted: #aeb9b2;
+  --color-primary: #69d1ae;
+  --color-primary-strong: #8de0c4;
+  --color-primary-soft: #203d33;
+  --color-accent: #f09a68;
+  --color-accent-soft: #4c2b20;
+  --color-border: #334039;
+  --color-border-strong: #526159;
+  --color-focus: #69d1ae;
+  --shadow-sm: 0 0.5rem 1.5rem rgb(0 0 0 / 18%);
+  --shadow-lg: 0 1.5rem 4rem rgb(0 0 0 / 35%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-background: #0e1512;
+    --color-surface: #16201b;
+    --color-surface-translucent: rgb(22 32 27 / 78%);
+    --color-text: #f4f1e8;
+    --color-text-muted: #aeb9b2;
+    --color-primary: #69d1ae;
+    --color-primary-strong: #8de0c4;
+    --color-primary-soft: #203d33;
+    --color-accent: #f09a68;
+    --color-accent-soft: #4c2b20;
+    --color-border: #334039;
+    --color-border-strong: #526159;
+    --color-focus: #69d1ae;
+  }
+}
