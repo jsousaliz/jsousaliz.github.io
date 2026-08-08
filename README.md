@@ -108,3 +108,7 @@ npm run dev
 O workflow `quality.yml` executa `npm run validate` em pushes e pull requests. O workflow `deploy.yml` gera o site e publica o conteúdo estático no GitHub Pages quando acionado manualmente.
 
 O planejamento editorial permanece em `plan/` e não é versionado. A documentação técnica de aprendizagem fica em `docs/` e faz parte do repositório.
+
+## Licença
+
+Este é um projeto de código-fonte público para demonstração profissional, mas não é open source. O uso, a cópia, a modificação, a distribuição e a publicação por terceiros não são autorizados. Consulte a [licença proprietária](LICENSE).
