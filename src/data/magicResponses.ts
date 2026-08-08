@@ -19,4 +19,5 @@ export const magicResponses = [
   'Abriu chamado? Agora a resposta tem SLA.',
   'Reinicia e pergunta de novo.',
   'Compilou de primeira. Isso só pode ser um não.',
+  'Não decidir também é decidir.',
 ] as const;
