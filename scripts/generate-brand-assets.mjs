@@ -9,9 +9,9 @@ const assets = [
   },
   {
     source: 'public/og-card.svg',
-    target: 'public/og-card-v2.png',
+    target: 'public/og-card-v3.png',
     width: 1200,
-    height: 630,
+    height: 1200,
   },
 ];
 
