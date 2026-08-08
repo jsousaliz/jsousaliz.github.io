@@ -35,7 +35,7 @@
 
 .magic-experience__lead {
   max-width: 44ch;
-  color: rgb(255 249 242 / 86%);
+  color: #fff9f2;
   font-size: var(--text-lead);
 }
 
@@ -69,7 +69,7 @@
 }
 
 .magic-experience__note {
-  color: rgb(255 249 242 / 65%);
+  color: rgb(255 249 242 / 90%);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
@@ -267,7 +267,7 @@
 .magic-orbit > p {
   position: relative;
   z-index: 1;
-  color: rgb(255 249 242 / 68%);
+  color: rgb(255 249 242 / 92%);
   font-size: var(--text-sm);
 }
 

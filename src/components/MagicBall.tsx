@@ -213,6 +213,8 @@ export default function MagicBall() {
                 alt=""
                 aria-hidden="true"
                 draggable={false}
+                width={108}
+                height={108}
               />
             )}
 
@@ -240,6 +242,8 @@ export default function MagicBall() {
                   alt=""
                   aria-hidden="true"
                   draggable={false}
+                  width={56}
+                  height={56}
                 />
                 <span className="magic-orbit__answer">{answer}</span>
               </span>
