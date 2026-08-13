@@ -1,13 +1,11 @@
-export const magicResponses = [
+export const mysticResponses = [
   'Pergunte novamente depois do café.',
   'Definitivamente talvez.',
-  'A capivara disse que sim.',
   'Hoje não. O universo tirou folga.',
   'Fontes completamente inventadas confirmam.',
   'Faça isso e finja que foi planejado.',
   'A resposta existe, mas não quis vir.',
   'Não conte comigo para decidir isso.',
-  'Sim, mas só se ninguém estiver olhando.',
   'Meu palpite oficial é: por que não?',
   'O destino deu de ombros.',
   'Consulte um biscoito da sorte mais experiente.',

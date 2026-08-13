@@ -1,4 +1,4 @@
-.magic-experience {
+.mystic-experience {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(23rem, 1.1fr);
@@ -9,14 +9,14 @@
   text-align: left;
 }
 
-.magic-experience__copy {
+.mystic-experience__copy {
   display: grid;
   max-width: 38rem;
   justify-items: start;
   gap: var(--space-4);
 }
 
-.magic-experience__label {
+.mystic-experience__label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 700;
@@ -24,7 +24,7 @@
   text-transform: uppercase;
 }
 
-.magic-experience h2 {
+.mystic-experience h2 {
   max-width: 11ch;
   font-family: var(--font-display);
   font-size: var(--text-3xl);
@@ -33,13 +33,13 @@
   line-height: 1;
 }
 
-.magic-experience__lead {
+.mystic-experience__lead {
   max-width: 44ch;
   color: #fff9f2;
   font-size: var(--text-lead);
 }
 
-.magic-experience__action {
+.mystic-experience__action {
   min-width: 9rem;
   min-height: 3.25rem;
   padding: 0.75rem 1.5rem;
@@ -55,33 +55,27 @@
     opacity var(--duration-fast) var(--ease-standard);
 }
 
-.magic-experience__action:hover:not(:disabled) {
+.mystic-experience__action:hover:not(:disabled) {
   transform: translateY(-2px);
 }
 
-.magic-experience__action:disabled {
+.mystic-experience__action:disabled {
   cursor: wait;
   opacity: 0.68;
 }
 
-.magic-orbit__ball:disabled {
+.mystic-orbit__ball:disabled {
   cursor: wait;
 }
 
-.magic-experience__note {
-  color: rgb(255 249 242 / 90%);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-}
-
-.magic-orbit {
+.mystic-orbit {
   position: relative;
   display: grid;
   justify-items: center;
   gap: var(--space-4);
 }
 
-.magic-orbit::before {
+.mystic-orbit::before {
   position: absolute;
   z-index: 0;
   top: 50%;
@@ -95,7 +89,7 @@
   transform: translate(-50%, -50%);
 }
 
-.magic-orbit__ball {
+.mystic-orbit__ball {
   position: relative;
   z-index: 1;
   display: grid;
@@ -125,24 +119,25 @@
   user-select: none;
 }
 
-.magic-orbit__ball:active:not(:disabled) {
+.mystic-orbit__ball:active:not(:disabled) {
   cursor: grabbing;
 }
 
-.magic-orbit__ball[data-state='shaking'] {
-  animation: magic-shake var(--magic-shake-duration, 900ms) var(--ease-standard);
+.mystic-orbit__ball[data-state='shaking'] {
+  animation: mystic-shake var(--mystic-shake-duration, 900ms)
+    var(--ease-standard);
 }
 
-.magic-orbit__ball[data-state='shaking']::after {
+.mystic-orbit__ball[data-state='shaking']::after {
   position: absolute;
   border: 1px solid rgb(199 242 227 / 72%);
   border-radius: 50%;
   content: '';
   inset: 8%;
-  animation: magic-pulse var(--magic-shake-duration, 900ms) ease-out;
+  animation: mystic-pulse var(--mystic-shake-duration, 900ms) ease-out;
 }
 
-.magic-orbit__window {
+.mystic-orbit__window {
   display: grid;
   width: 64%;
   aspect-ratio: 1;
@@ -160,7 +155,7 @@
   gap: var(--space-3);
 }
 
-.magic-orbit__coffee {
+.mystic-orbit__coffee {
   display: block;
   width: clamp(4.75rem, 9vw, 6.75rem);
   pointer-events: none;
@@ -168,86 +163,86 @@
   -webkit-user-drag: none;
 }
 
-.magic-orbit__coffee--initial,
-.magic-orbit__result,
-.magic-orbit__sparkles {
+.mystic-orbit__coffee--initial,
+.mystic-orbit__result,
+.mystic-orbit__sparkles {
   grid-area: 1 / 1;
   place-self: center;
 }
 
-.magic-orbit__coffee--returning {
-  animation: magic-content-fade-in 1200ms var(--ease-standard) both;
+.mystic-orbit__coffee--returning {
+  animation: mystic-content-fade-in 1200ms var(--ease-standard) both;
 }
 
-.magic-orbit__coffee--answer {
+.mystic-orbit__coffee--answer {
   width: clamp(2.5rem, 5vw, 3.5rem);
   margin-inline: auto;
 }
 
-.magic-orbit__result {
+.mystic-orbit__result {
   display: grid;
   place-items: center;
   gap: var(--space-3);
-  animation: magic-result-reveal 700ms var(--ease-standard) both;
+  animation: mystic-result-reveal 700ms var(--ease-standard) both;
 }
 
-.magic-orbit__result[data-state='dismissing'] {
-  animation: magic-content-fade-out 1200ms var(--ease-standard) both;
+.mystic-orbit__result[data-state='dismissing'] {
+  animation: mystic-content-fade-out 1200ms var(--ease-standard) both;
 }
 
-.magic-orbit__sparkles {
+.mystic-orbit__sparkles {
   position: relative;
   display: block;
   width: 9rem;
   aspect-ratio: 1;
 }
 
-.magic-orbit__sparkles i {
+.mystic-orbit__sparkles i {
   position: absolute;
   color: #c7f2e3;
   font-size: var(--text-xl);
   font-style: normal;
   opacity: 0;
-  animation: magic-sparkle var(--magic-shake-duration, 900ms) ease-in-out
+  animation: mystic-sparkle var(--mystic-shake-duration, 900ms) ease-in-out
     infinite;
 }
 
-.magic-orbit__sparkles i:nth-child(1) {
+.mystic-orbit__sparkles i:nth-child(1) {
   top: 4%;
   left: 45%;
 }
 
-.magic-orbit__sparkles i:nth-child(2) {
+.mystic-orbit__sparkles i:nth-child(2) {
   top: 24%;
   right: 4%;
   animation-delay: 100ms;
 }
 
-.magic-orbit__sparkles i:nth-child(3) {
+.mystic-orbit__sparkles i:nth-child(3) {
   right: 15%;
   bottom: 10%;
   animation-delay: 200ms;
 }
 
-.magic-orbit__sparkles i:nth-child(4) {
+.mystic-orbit__sparkles i:nth-child(4) {
   bottom: 0;
   left: 45%;
   animation-delay: 300ms;
 }
 
-.magic-orbit__sparkles i:nth-child(5) {
+.mystic-orbit__sparkles i:nth-child(5) {
   bottom: 18%;
   left: 7%;
   animation-delay: 400ms;
 }
 
-.magic-orbit__sparkles i:nth-child(6) {
+.mystic-orbit__sparkles i:nth-child(6) {
   top: 20%;
   left: 2%;
   animation-delay: 500ms;
 }
 
-.magic-orbit__sparkles i:nth-child(7) {
+.mystic-orbit__sparkles i:nth-child(7) {
   top: 43%;
   left: 44%;
   color: #f09a68;
@@ -255,7 +250,7 @@
   animation-delay: 150ms;
 }
 
-.magic-orbit__answer {
+.mystic-orbit__answer {
   max-width: 18ch;
   font-family: var(--font-display);
   font-size: var(--text-lead);
@@ -264,14 +259,14 @@
   text-align: center;
 }
 
-.magic-orbit > p {
+.mystic-orbit > p {
   position: relative;
   z-index: 1;
   color: rgb(255 249 242 / 92%);
   font-size: var(--text-sm);
 }
 
-@keyframes magic-shake {
+@keyframes mystic-shake {
   0%,
   100% {
     transform: rotate(0) translateX(0);
@@ -293,7 +288,7 @@
   }
 }
 
-@keyframes magic-pulse {
+@keyframes mystic-pulse {
   0% {
     opacity: 0;
     transform: scale(0.7);
@@ -307,7 +302,7 @@
   }
 }
 
-@keyframes magic-sparkle {
+@keyframes mystic-sparkle {
   0%,
   100% {
     opacity: 0;
@@ -319,7 +314,7 @@
   }
 }
 
-@keyframes magic-result-reveal {
+@keyframes mystic-result-reveal {
   from {
     opacity: 0;
     transform: scale(0.88);
@@ -330,7 +325,7 @@
   }
 }
 
-@keyframes magic-content-fade-out {
+@keyframes mystic-content-fade-out {
   from {
     opacity: 1;
   }
@@ -339,7 +334,7 @@
   }
 }
 
-@keyframes magic-content-fade-in {
+@keyframes mystic-content-fade-in {
   from {
     opacity: 0;
   }
@@ -349,27 +344,27 @@
 }
 
 @media (max-width: 61.99rem) {
-  .magic-section::before,
-  .magic-orbit::before {
+  .mystic-section::before,
+  .mystic-orbit::before {
     display: none;
   }
 
-  .magic-experience {
+  .mystic-experience {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
   }
 
-  .magic-experience__copy {
+  .mystic-experience__copy {
     justify-items: center;
   }
 
-  .magic-experience h2,
-  .magic-experience__lead {
+  .mystic-experience h2,
+  .mystic-experience__lead {
     max-width: 100%;
   }
 
-  .magic-orbit__ball {
+  .mystic-orbit__ball {
     border-color: rgb(255 255 255 / 14%);
     box-shadow:
       inset 1.25rem 1.25rem 2.75rem rgb(255 255 255 / 5%),
@@ -379,11 +374,11 @@
 }
 
 @media (max-width: 35rem) {
-  .magic-orbit__ball {
+  .mystic-orbit__ball {
     width: min(88vw, 22rem);
   }
 
-  .magic-experience__action {
+  .mystic-experience__action {
     width: min(100%, 20rem);
   }
 }

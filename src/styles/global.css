@@ -106,7 +106,7 @@
 
   .section {
     position: relative;
-    padding-block: var(--space-10);
+    padding-block: var(--space-8);
   }
 
   .button {
@@ -146,23 +146,6 @@
     border-color: transparent;
     border-radius: 0;
     color: var(--color-text-muted);
-  }
-
-  .skip-link {
-    position: fixed;
-    z-index: 100;
-    top: var(--space-3);
-    left: var(--space-3);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    background: var(--color-text);
-    color: var(--color-background);
-    font-weight: 700;
-    transform: translateY(-200%);
-  }
-
-  .skip-link[data-visible='true']:focus {
-    transform: translateY(0);
   }
 }
 

@@ -1,0 +1,55 @@
+---
+interface Props {
+  ariaLabel: string;
+}
+
+const { ariaLabel } = Astro.props;
+---
+
+<ol
+  class="courses-list courses-list--compact courses-list--limited"
+  data-limited-list
+  aria-label={ariaLabel}
+  tabindex="-1"
+>
+  <slot />
+</ol>
+
+<script>
+  const visibleItems = 4;
+
+  function updateLimitedLists(): void {
+    document
+      .querySelectorAll<HTMLOListElement>('[data-limited-list]')
+      .forEach((list) => {
+        const items = Array.from(list.children).filter(
+          (item): item is HTMLElement => item instanceof HTMLElement,
+        );
+        const isOverflowing = items.length > visibleItems;
+
+        list.classList.toggle('is-overflowing', isOverflowing);
+        list.tabIndex = isOverflowing ? 0 : -1;
+
+        if (!isOverflowing) {
+          list.style.removeProperty('--limited-list-height');
+          return;
+        }
+
+        const fourthItem = items[visibleItems - 1];
+        if (!fourthItem) return;
+
+        const listTop = list.getBoundingClientRect().top;
+        const fourthItemBottom = fourthItem.getBoundingClientRect().bottom;
+        const visibleHeight = Math.ceil(fourthItemBottom - listTop);
+        list.style.setProperty('--limited-list-height', `${visibleHeight}px`);
+      });
+  }
+
+  document.fonts.ready.then(updateLimitedLists);
+  window.addEventListener('load', updateLimitedLists, { once: true });
+
+  const resizeObserver = new ResizeObserver(updateLimitedLists);
+  document
+    .querySelectorAll('[data-limited-list]')
+    .forEach((list) => resizeObserver.observe(list));
+</script>

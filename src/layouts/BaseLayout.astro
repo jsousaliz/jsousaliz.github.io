@@ -98,35 +98,6 @@ const personSchema = {
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#conteudo" data-skip-link
-      >Pular para o conteúdo</a
-    >
     <slot />
-    <script>
-      const skipLink = document.querySelector<HTMLElement>('[data-skip-link]');
-
-      document.addEventListener(
-        'keydown',
-        (event) => {
-          if (!skipLink) return;
-          const tabNavigation =
-            event.key === 'Tab' && !event.ctrlKey && !event.metaKey;
-          skipLink.dataset.visible = String(tabNavigation);
-        },
-        true,
-      );
-
-      document.addEventListener(
-        'pointerdown',
-        () => {
-          if (skipLink) skipLink.dataset.visible = 'false';
-        },
-        true,
-      );
-
-      skipLink?.addEventListener('blur', () => {
-        skipLink.dataset.visible = 'false';
-      });
-    </script>
   </body>
 </html>

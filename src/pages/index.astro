@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 
 import ExperienceYears from '@/components/ExperienceYears.astro';
-import MagicBall from '@/components/MagicBall';
+import LimitedList from '@/components/LimitedList.astro';
+import MysticCoffee from '@/components/MysticCoffee';
 import ProjectShowcase from '@/components/ProjectShowcase.astro';
 import RecommendationCarousel from '@/components/RecommendationCarousel.astro';
 import ScrollEnhancements from '@/components/ScrollEnhancements.astro';
@@ -12,6 +13,12 @@ import SiteHeader from '@/components/SiteHeader.astro';
 import jeanHero from '@/assets/images/jean-hero.jpg';
 import jeanTrilha from '@/assets/images/jean-trilha.jpg';
 import { courses } from '@/data/courses';
+import {
+  events,
+  higherEducation,
+  technicalBooks,
+  workshops,
+} from '@/data/formation';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import '@/styles/home.css';
 
@@ -36,10 +43,7 @@ const inProgressCourses = courses.filter(
           <p class="hero__identity">
             Software Developer · <ExperienceYears />
           </p>
-          <h1 id="hero-title">
-            Transformo problemas complexos em software simples de entender,
-            manter e evoluir.
-          </h1>
+          <h1 id="hero-title">Código simples de entender, manter e evoluir.</h1>
           <p class="hero__intro">
             Olá, sou o Jean. Minha especialidade é Delphi, mas meu trabalho
             nunca ficou preso a uma única stack. Desenvolvendo software desde
@@ -72,72 +76,113 @@ const inProgressCourses = courses.filter(
           />
         </div>
       </div>
-      <span class="scroll-cue" aria-hidden="true">continue explorando</span>
     </section>
 
     <section
       class="section"
-      data-navigation-section="sobre"
-      aria-labelledby="sobre-title"
+      data-navigation-section="competencias"
+      aria-labelledby="competencias-title"
     >
       <div class="container">
-        <p class="about__eyebrow eyebrow" id="sobre">
-          <span>01</span> seção
-        </p>
+        <SectionHeading
+          number="01"
+          anchorId="competencias"
+          headingId="competencias-title"
+          title="Competências"
+          intro="Lista das principais competências técnicas e ferramentas utilizadas."
+        />
 
-        <h2 class="about__title" id="sobre-title">
-          Código é o meio. Fazer diferença é o que importa.
-        </h2>
-
-        <div class="about__grid">
-          <div class="about__prose" data-reveal>
-            <p>
-              Escolhi a tecnologia ainda na adolescência. Pouco depois de
-              começar a faculdade de Ciência da Computação, um professor
-              percebeu meu interesse e me convidou para trabalhar em sua
-              empresa. Foi assim, de forma simples, que minha carreira começou.
-            </p>
-            <p>
-              Desde 2010, vivi contextos bem diferentes: comecei próximo de
-              clientes, produto e implantação e depois passei a trabalhar em
-              equipes especializadas, com processos e automações bem definidos.
-              Essa transição ampliou minha visão e me deu confiança para
-              aprender a tecnologia que cada problema exigir.
-            </p>
-            <p>
-              Sou calmo, analítico e detalhista. Gosto de código, ambientes e
-              processos organizados, sem transformar qualidade em
-              perfeccionismo. Também gosto de trabalhar em parceria,
-              compartilhar conhecimento e ajudar outros desenvolvedores.
-            </p>
-            <p>
-              Ver uma solução funcionando é uma satisfação. Perceber que ela
-              facilitou o trabalho ou fez diferença na vida de alguém é o que
-              realmente dá sentido ao que faço.
-            </p>
+        <div class="section__content">
+          <div class="expertise-groups" data-reveal>
+            <details class="expertise-group">
+              <summary>
+                <span>01</span><h3>Delphi</h3>
+                <p>VCL · FireDAC · dbExpress · RTTI</p>
+              </summary>
+              <p>
+                DUnit, DUnitX, Mocks, Profiling, Componentes, Packages, DLLs,
+                Generics, TThread, ACBR, THorse entre outros.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>04</span><h3>Outras stacks</h3>
+                <p>Python · NET/C# · React · Java</p>
+              </summary>
+              <p>
+                Experiências pontuais em diferentes linguagens e frameworks.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>06</span><h3>Inteligência artificial</h3>
+                <p>Planejar · Produzir · Validar · Documentar</p>
+              </summary>
+              <p>
+                IA no planejamento e produção de código. Trabalho dividido em
+                etapas e validado a cada entrega, com testes e documentação.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>02</span><h3>Dados e performance</h3>
+                <p>PostgreSQL · Oracle · Firebird · MongoDB</p>
+              </summary>
+              <p>
+                SQL, procedures, triggers, transações, migração, transformação e
+                processamento de grandes volumes de dados.
+              </p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>03</span><h3>Integrações e mensageria</h3>
+                <p>REST · JSON · XML · SOAP · AMQP</p>
+              </summary>
+              <p>RabbitMQ, LDAP, certificados e assinatura digital.</p>
+            </details>
+            <details class="expertise-group">
+              <summary>
+                <span>05</span><h3>Ferramentas complementares</h3>
+                <p>Git · GitHub Actions · Jira · RTC</p>
+              </summary>
+              <p>
+                Pipelines, Docker, geração automatizada de versões, controle de
+                cobertura, monitoramento e observabilidade.
+              </p>
+            </details>
           </div>
+        </div>
 
-          <div class="about__media" data-reveal>
-            <figure class="about__figure">
-              <Image
-                class="about__image"
-                src={jeanTrilha}
-                alt="Jean durante uma trilha em meio à mata em Santa Catarina"
-                format="webp"
-                quality={80}
-                width={640}
-                loading="lazy"
-              />
-              <figcaption class="about__caption">
-                <h3>Além do código</h3>
-                <p>
-                  Sou pai — meu melhor projeto é minha filha — e, no tempo
-                  livre, gosto de ler, assistir a filmes e séries, cozinhar,
-                  correr e fazer trilhas.
-                </p>
-              </figcaption>
-            </figure>
-          </div>
+        <header class="work-principles__heading" data-reveal>
+          <h3>Como aplico esse conhecimento</h3>
+        </header>
+
+        <div class="work-principles" data-reveal>
+          <article>
+            <span>Requisitos e Diagnóstico</span>
+            <h3>Contexto antes do código</h3>
+            <p>
+              Busco evidências, converso com as pessoas envolvidas e separo o
+              que é urgente do que exige uma solução definitiva.
+            </p>
+          </article>
+          <article>
+            <span>Engenharia</span>
+            <h3>Código confiável</h3>
+            <p>
+              Responsabilidades claras, princípios SOLID, Clean Code, Design
+              Patterns e uma estrutura que favoreça leitura, manutenção e testes
+              isolados.
+            </p>
+          </article>
+          <article>
+            <span>Entrega</span>
+            <h3>Qualidade com pragmatismo</h3>
+            <p>
+              Prazo e qualidade são equilibrados pelo valor entregue, com
+              débitos técnicos conscientes e seus efeitos conhecidos.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -152,8 +197,8 @@ const inProgressCourses = courses.filter(
           number="02"
           anchorId="trajetoria"
           headingId="trajetoria-title"
-          title="Uma trajetória construindo soluções e ampliando possibilidades."
-          intro="Dois ciclos profissionais com responsabilidades diferentes. Nos detalhes, reuni minhas principais atribuições e algumas entregas que escolhi destacar — não uma lista completa de cada período."
+          title="Trajetória"
+          intro="Dois ciclos profissionais com responsabilidades diferentes. Nos detalhes estão algumas das minhas principais atribuições e entregas."
           light
         />
 
@@ -180,17 +225,13 @@ const inProgressCourses = courses.filter(
                   <h4>Atuação no período</h4>
                   <ul>
                     <li>
-                      Desenvolvimento e evolução de sistemas fiscais,
-                      comerciais, industriais e de gestão de pessoas.
+                      Desenvolvimento de sistemas fiscais, comerciais,
+                      industriais e de gestão de pessoas.
                     </li>
                     <li>
-                      Levantamento de necessidades diretamente com clientes.
+                      Requisitos, implantação e suporte junto aos clientes.
                     </li>
-                    <li>Implantação, configuração e suporte dos sistemas.</li>
-                    <li>
-                      Correção de falhas, melhoria de performance e refatoração
-                      de código legado.
-                    </li>
+                    <li>Correções, performance e evolução de código legado.</li>
                   </ul>
                 </section>
 
@@ -239,35 +280,13 @@ const inProgressCourses = courses.filter(
                   <h4>Atuação no período</h4>
                   <ul>
                     <li>
-                      Desenvolvimento e evolução de sistemas de gestão de
-                      processos judiciais e extrajudiciais.
+                      Evolução de sistemas para processos judiciais e
+                      extrajudiciais.
                     </li>
-                    <li>
-                      Integrações com APIs REST, Web Services e serviços
-                      externos.
-                    </li>
-                    <li>
-                      Análise de regras de negócio e investigação de problemas
-                      em ambientes produtivos.
-                    </li>
-                    <li>
-                      Participação em revisões de código, definições técnicas e
-                      decisões de arquitetura.
-                    </li>
-                    <li>
-                      Atuação como referência técnica do time, apoiando
-                      decisões, resolução de problemas e compartilhamento de
-                      conhecimento.
-                    </li>
-                    <li>
-                      Apadrinhamento de novos desenvolvedores, conduzindo
-                      onboarding, repasses técnicos, acompanhamento nos
-                      primeiros meses e sessões de trabalho em conjunto.
-                    </li>
-                    <li>
-                      Atuação com CI/CD, automação de build e deploy, além de
-                      documentação e repasses técnicos.
-                    </li>
+                    <li>Integrações REST, Web Services e serviços externos.</li>
+                    <li>Diagnóstico de produção, revisão e arquitetura.</li>
+                    <li>Referência técnica e onboarding de desenvolvedores.</li>
+                    <li>CI/CD, automação, documentação e repasses técnicos.</li>
                   </ul>
                 </section>
 
@@ -306,149 +325,20 @@ const inProgressCourses = courses.filter(
                   <h4>Além da stack principal</h4>
                   <ol class="career-stack-list">
                     <li>
-                      <strong>Java:</strong> correção de autenticação LDAP.
+                      <strong>Python:</strong> ajuste em uma aplicação de pipeline
+                      responsável por medir cobertura de testes.
                     </li>
-                    <li><strong>React:</strong> evoluções de interface.</li>
                     <li>
                       <strong>.NET/C#:</strong> correção de uma consulta que sobrecarregava
                       o banco de dados.
                     </li>
+                    <li><strong>React:</strong> evoluções de interface.</li>
                     <li>
-                      <strong>Python:</strong> ajuste em uma aplicação de pipeline
-                      responsável por medir cobertura de testes.
+                      <strong>Java:</strong> correção de autenticação LDAP.
                     </li>
                   </ol>
                 </section>
               </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="section"
-      data-navigation-section="especialidades"
-      aria-labelledby="especialidades-title"
-    >
-      <div class="container">
-        <SectionHeading
-          number="03"
-          anchorId="especialidades"
-          headingId="especialidades-title"
-          title="Entender primeiro. Construir com clareza. Medir antes de otimizar."
-          intro="Meu trabalho começa antes do código e termina somente depois que a solução foi validada."
-        />
-
-        <div class="section__content">
-          <ol class="process" aria-label="Processo de trabalho" data-reveal>
-            <li>Entender</li>
-            <li>Investigar</li>
-            <li>Implementar</li>
-            <li>Testar</li>
-            <li>Medir</li>
-            <li>Entregar</li>
-          </ol>
-
-          <div class="work-principles" data-reveal>
-            <article>
-              <span>Requisitos</span>
-              <h3>Contexto antes do código</h3>
-              <p>
-                Busco evidências, converso com as pessoas envolvidas e separo o
-                que é urgente do que exige uma solução definitiva.
-              </p>
-            </article>
-            <article>
-              <span>Engenharia</span>
-              <h3>Código confiável</h3>
-              <p>
-                Responsabilidades claras, princípios SOLID e uma estrutura que
-                favoreça leitura, manutenção e testes isolados.
-              </p>
-            </article>
-            <article>
-              <span>Diagnóstico</span>
-              <h3>Medir antes de alterar</h3>
-              <p>
-                Combino logs, debugger, banco de dados e isolamento de hipóteses
-                para encontrar o gargalo real antes de otimizar.
-              </p>
-            </article>
-            <article>
-              <span>Entrega</span>
-              <h3>Qualidade com pragmatismo</h3>
-              <p>
-                Prazo e qualidade são equilibrados pelo valor entregue, com
-                débitos técnicos conscientes e seus efeitos conhecidos.
-              </p>
-            </article>
-          </div>
-
-          <header class="expertise-heading" data-reveal>
-            <h3>Competências técnicas e ferramentas</h3>
-          </header>
-
-          <div class="expertise-groups" data-reveal>
-            <details class="expertise-group">
-              <summary>
-                <span>01</span><h3>Ecossistema Delphi</h3>
-                <p>Delphi · VCL · FireDAC · RTTI</p>
-              </summary>
-              <p>
-                Generics, attributes, componentes, packages, DLLs,
-                <code>TThread</code> e programação concorrente.
-              </p>
-            </details>
-            <details class="expertise-group">
-              <summary>
-                <span>02</span><h3>Dados e performance</h3>
-                <p>PostgreSQL · Oracle · Firebird · MongoDB</p>
-              </summary>
-              <p>
-                SQL, procedures, triggers, transações, migração, transformação e
-                processamento de grandes volumes de dados.
-              </p>
-            </details>
-            <details class="expertise-group">
-              <summary>
-                <span>03</span><h3>Integrações e mensageria</h3>
-                <p>REST · JSON · XML · SOAP · AMQP</p>
-              </summary>
-              <p>
-                RabbitMQ, comunicação assíncrona, LDAP, certificados e
-                assinatura digital.
-              </p>
-            </details>
-            <details class="expertise-group">
-              <summary>
-                <span>04</span><h3>Testes e confiabilidade</h3>
-                <p>DUnit · DUnitX · mocks · profiling</p>
-              </summary>
-              <p>
-                Testes unitários, integração, contrato e performance, cobertura,
-                análise de memória e logs estruturados.
-              </p>
-            </details>
-            <details class="expertise-group">
-              <summary>
-                <span>05</span><h3>Ferramentas complementares</h3>
-                <p>Git · GitHub Actions · Jira · RTC</p>
-              </summary>
-              <p>
-                Pipelines, Docker, geração automatizada de versões, controle de
-                cobertura, monitoramento e observabilidade.
-              </p>
-            </details>
-            <details class="expertise-group">
-              <summary>
-                <span>06</span><h3>Inteligência artificial</h3>
-                <p>Planejar · Produzir · Validar · Documentar</p>
-              </summary>
-              <p>
-                IA no planejamento e produção de código. Trabalho dividido em
-                etapas e validado a cada entrega, com testes e documentação.
-              </p>
             </details>
           </div>
         </div>
@@ -462,11 +352,11 @@ const inProgressCourses = courses.filter(
     >
       <div class="container">
         <SectionHeading
-          number="04"
+          number="03"
           anchorId="projetos"
           headingId="projetos-title"
-          title="Projetos que começaram com um problema real."
-          intro="Software criado para ser utilizado, testado e evoluído — com decisões de produto e arquitetura visíveis no código."
+          title="Projetos"
+          intro="Abaixo alguns projetos que mantenho em meu repositório pessoal:"
         />
 
         <div class="section__content">
@@ -476,11 +366,267 @@ const inProgressCourses = courses.filter(
     </section>
 
     <section
-      class="section magic-section"
-      id="magic-ball"
+      class="section mystic-section"
+      id="mystic-coffee"
       aria-labelledby="mystic-coffee-title"
     >
-      <MagicBall client:visible />
+      <MysticCoffee client:visible />
+    </section>
+
+    <section
+      class="section"
+      data-navigation-section="formacao"
+      aria-labelledby="formacao-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="04"
+          anchorId="formacao"
+          headingId="formacao-title"
+          title="Formação"
+        />
+
+        <div class="section__content formation-content">
+          <div class="formation-columns" data-reveal>
+            <section class="courses-group">
+              <header class="courses-group__heading">
+                <p>Cursos superiores</p>
+              </header>
+              <ol class="courses-list formation-list">
+                {
+                  higherEducation.map((education, index) => (
+                    <li class="course-row">
+                      <span class="course-row__index">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <div class="course-row__content course-row__content--illustrated">
+                        <img
+                          class="course-row__institution-logo"
+                          data-institution={education.institution.toLowerCase()}
+                          src={education.icon}
+                          alt={education.iconAlt}
+                          loading="lazy"
+                        />
+                        <div>
+                          <h4>{education.title}</h4>
+                          <div class="course-row__meta">
+                            <span>{education.institution}</span>
+                            <time>{education.period}</time>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                }
+              </ol>
+            </section>
+            <section class="formation-extra formation-extra--books">
+              <header class="courses-group__heading">
+                <p>Livros técnicos</p>
+              </header>
+              <div class="technical-books">
+                {
+                  technicalBooks.map((book) => (
+                    <img
+                      src={book.cover}
+                      alt={`Capa do livro ${book.title}`}
+                      loading="lazy"
+                    />
+                  ))
+                }
+              </div>
+            </section>
+          </div>
+
+          <div class="formation-columns formation-columns--courses" data-reveal>
+            <section class="courses-group">
+              <header class="courses-group__heading">
+                <p>Cursos concluídos</p>
+              </header>
+              <LimitedList ariaLabel="Cursos concluídos">
+                {
+                  completedCourses.map((course) => (
+                    <li class="course-row">
+                      <span class="course-row__index">
+                        {course.periodShort}
+                      </span>
+                      <div class="course-row__content course-row__content--illustrated">
+                        <span class="course-row__icons">
+                          {course.icons?.map((icon) => (
+                            <img src={icon.src} alt={icon.alt} loading="lazy" />
+                          ))}
+                        </span>
+                        <div>
+                          <p class="course-row__title">
+                            <strong>{course.titleLead}</strong>{' '}
+                            {course.titleDetail}
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                }
+              </LimitedList>
+            </section>
+
+            <section class="courses-group courses-group--current">
+              <header class="courses-group__heading">
+                <p>Cursos em andamento</p>
+              </header>
+              {
+                inProgressCourses.length > 0 ? (
+                  <LimitedList ariaLabel="Cursos em andamento">
+                    {inProgressCourses.map((course) => (
+                      <li class="course-row course-row--without-index">
+                        <div class="course-row__content course-row__content--illustrated">
+                          <span class="course-row__icons">
+                            {course.icons?.map((icon) => (
+                              <img
+                                src={icon.src}
+                                alt={icon.alt}
+                                loading="lazy"
+                              />
+                            ))}
+                          </span>
+                          <div>
+                            <p class="course-row__title">
+                              <strong>{course.titleLead}</strong>{' '}
+                              {course.titleDetail}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </LimitedList>
+                ) : (
+                  <p class="courses-empty">
+                    Nenhum curso selecionado no momento.
+                  </p>
+                )
+              }
+            </section>
+
+            <section class="formation-extra formation-extra--event">
+              <header class="courses-group__heading">
+                <p>Eventos</p>
+              </header>
+              <LimitedList ariaLabel="Participações no Proud Tech Summit">
+                {
+                  events.map((event) => (
+                    <li class="course-row">
+                      <span class="course-row__index">{event.period}</span>
+                      <div class="course-row__content course-row__content--illustrated">
+                        <img
+                          class="event-logo"
+                          src={event.icon}
+                          alt=""
+                          loading="lazy"
+                        />
+                        <p class="course-row__title">
+                          <strong>{event.titleLead}</strong> {event.titleDetail}
+                        </p>
+                      </div>
+                    </li>
+                  ))
+                }
+              </LimitedList>
+            </section>
+
+            <section class="formation-extra formation-extra--event">
+              <header class="courses-group__heading">
+                <p>Workshops</p>
+              </header>
+              <LimitedList ariaLabel="Workshops realizados">
+                {
+                  workshops.map((workshop) => (
+                    <li class="course-row">
+                      <span class="course-row__index">{workshop.period}</span>
+                      <div class="course-row__content course-row__content--illustrated">
+                        <img
+                          class="event-logo"
+                          src={workshop.icon}
+                          alt=""
+                          loading="lazy"
+                        />
+                        <p class="course-row__title">
+                          <strong>{workshop.titleLead}</strong>{' '}
+                          {workshop.titleDetail}
+                        </p>
+                      </div>
+                    </li>
+                  ))
+                }
+              </LimitedList>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section about"
+      data-navigation-section="sobre"
+      aria-labelledby="sobre-title"
+    >
+      <div class="container">
+        <SectionHeading
+          number="05"
+          anchorId="sobre"
+          headingId="sobre-title"
+          title="Sobre"
+          light
+        />
+
+        <div class="about__grid section__content">
+          <div class="about__prose" data-reveal>
+            <p>
+              Escolhi a tecnologia ainda na adolescência. Pouco depois de
+              começar a faculdade de Ciência da Computação, um professor
+              percebeu meu interesse e me convidou para trabalhar em sua
+              empresa. Foi assim, de forma simples, que minha carreira começou.
+            </p>
+            <p>
+              Desde 2010, vivi contextos bem diferentes: comecei próximo de
+              clientes, produto e implantação e depois passei a trabalhar em
+              equipes especializadas, com processos e automações bem definidos.
+              Essa transição ampliou minha visão e me deu confiança para
+              aprender a tecnologia que cada problema exigir.
+            </p>
+            <p>
+              Sou calmo, analítico e detalhista. Gosto de código, ambientes e
+              processos organizados, sem transformar qualidade em
+              perfeccionismo. Também gosto de trabalhar em parceria,
+              compartilhar conhecimento e ajudar outros desenvolvedores.
+            </p>
+            <p>
+              Ver uma solução funcionando é uma satisfação. Perceber que ela
+              facilitou o trabalho ou fez diferença na vida de alguém é o que
+              realmente dá sentido ao que faço.
+            </p>
+          </div>
+
+          <div class="about__media" data-reveal>
+            <figure class="about__figure">
+              <Image
+                class="about__image"
+                src={jeanTrilha}
+                alt="Jean durante uma trilha em meio à mata em Santa Catarina"
+                format="webp"
+                quality={80}
+                width={640}
+                loading="lazy"
+              />
+              <figcaption class="about__caption">
+                <h3>Além do código</h3>
+                <p>
+                  No tempo livre, gosto de ler, assistir a filmes e séries,
+                  cozinhar, correr e fazer trilhas.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section
@@ -490,107 +636,15 @@ const inProgressCourses = courses.filter(
     >
       <div class="container">
         <SectionHeading
-          number="05"
+          number="06"
           anchorId="recomendacoes"
           headingId="recomendacoes-title"
-          title="O que dizem sobre trabalhar comigo."
-          intro="Recomendações publicadas no LinkedIn por pessoas que acompanharam de perto minha atuação técnica, colaboração e forma de entregar."
+          title="Recomendações"
+          intro="Feito por pessoas que acompanharam de perto minhas entregas. Disponível no LinkedIn."
         />
 
         <div class="section__content" data-reveal>
           <RecommendationCarousel />
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="section"
-      data-navigation-section="aprendizado"
-      aria-labelledby="aprendizado-title"
-    >
-      <div class="container">
-        <SectionHeading
-          number="06"
-          anchorId="aprendizado"
-          headingId="aprendizado-title"
-          title="Exatas por formação. Tecnologia por escolha."
-        />
-
-        <div class="section__content learning-content">
-          <div class="learning-copy prose" data-reveal>
-            <p>
-              Minha trajetória acadêmica começou no curso de Ciência da
-              Computação da UNIFACVEST. Mais tarde, realizei o sonho de concluir
-              a Licenciatura em Matemática pela UNIPLAC. Essa combinação
-              reforçou algo que sempre fez parte de mim: lógica, organização e
-              gosto por problemas que exigem análise.
-            </p>
-            <p>
-              Continuo aprendendo pela prática e pelo estudo constante:
-              investigo tecnologias, desenvolvo projetos, faço cursos, participo
-              de workshops e leio livros sobre programação. Assim, transformo o
-              conhecimento adquirido em soluções que outras pessoas possam
-              utilizar.
-            </p>
-          </div>
-
-          <div class="courses-layout" data-reveal>
-            <section class="courses-group">
-              <header class="courses-group__heading">
-                <p>Histórico</p>
-                <h3>Cursos concluídos</h3>
-              </header>
-              <ol class="courses-list">
-                {
-                  completedCourses.map((course, index) => (
-                    <li class="course-row">
-                      <span class="course-row__index">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <div class="course-row__content">
-                        <h4>{course.title}</h4>
-                        <div class="course-row__meta">
-                          <span>{course.provider}</span>
-                          {course.period && <time>{course.period}</time>}
-                        </div>
-                      </div>
-                    </li>
-                  ))
-                }
-              </ol>
-            </section>
-
-            <section class="courses-group courses-group--current">
-              <header class="courses-group__heading">
-                <p>Agora</p>
-                <h3>Cursos em andamento</h3>
-              </header>
-              {
-                inProgressCourses.length > 0 ? (
-                  <ol class="courses-list">
-                    {inProgressCourses.map((course, index) => (
-                      <li class="course-row">
-                        <span class="course-row__index">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <div class="course-row__content">
-                          <h4>{course.title}</h4>
-                          <div class="course-row__meta">
-                            <span>{course.provider}</span>
-                            {course.period && <time>{course.period}</time>}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                ) : (
-                  <p class="courses-empty">
-                    Nenhum curso selecionado no momento.
-                  </p>
-                )
-              }
-            </section>
-          </div>
         </div>
       </div>
     </section>
@@ -609,23 +663,37 @@ const inProgressCourses = courses.filter(
           </span>
         </h2>
         <p>
-          Boas conversas, novas ideias e projetos interessantes ficam ainda
-          melhores com um cafezinho. Se quiser trocar experiências ou conversar
-          sobre desenvolvimento, me encontre no LinkedIn.
+          Se quiser trocar experiências ou conversar sobre desenvolvimento, me
+          encontre no LinkedIn.
         </p>
         <div class="contact__actions">
           <a
             class="button button--primary"
             href="https://www.linkedin.com/in/jsousaliz/"
             target="_blank"
-            rel="noreferrer">Conversar no LinkedIn</a
+            rel="noreferrer"
           >
+            <img class="button__icon" src="/icons/social/linkedin.svg" alt="" />
+            Conversar no LinkedIn
+          </a>
           <a
             class="button button--secondary"
             href="https://github.com/jsousaliz"
             target="_blank"
-            rel="noreferrer">Explorar meu GitHub</a
+            rel="noreferrer"
           >
+            <img class="button__icon" src="/icons/social/github.svg" alt="" />
+            Explorar meu GitHub
+          </a>
+          <a
+            class="button button--secondary"
+            href="https://www.youtube.com/@jsousaliz"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img class="button__icon" src="/icons/social/youtube.svg" alt="" />
+            Canal no YouTube
+          </a>
         </div>
         <p class="location">Santa Catarina, Brasil</p>
       </div>

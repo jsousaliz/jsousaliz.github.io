@@ -78,13 +78,13 @@ As chaves inserem valores TypeScript no HTML. Tags iniciadas com letra maiúscul
 O `index.astro` também define a ordem visual atual:
 
 1. Hero (`#inicio`).
-2. Sobre (`#sobre`).
+2. Competências (`#competencias`).
 3. Trajetória (`#trajetoria`).
-4. Especialidades (`#especialidades`).
-5. Projetos (`#projetos`).
-6. Mystic Coffee (`#magic-ball`).
-7. Recomendações (`#recomendacoes`).
-8. Aprendizado (`#aprendizado`).
+4. Projetos (`#projetos`).
+5. Mystic Coffee (`#mystic-coffee`).
+6. Formação (`#formacao`).
+7. Sobre (`#sobre`).
+8. Recomendações (`#recomendacoes`).
 9. Contato (`#contato`).
 
 Os links do menu apontam para esses identificadores. Os atributos `data-navigation-section` permitem que os scripts descubram qual seção está visível sem acoplar essa lógica ao texto exibido.
@@ -93,7 +93,7 @@ Os links do menu apontam para esses identificadores. Os atributos `data-navigati
 
 Nem todo texto precisa estar em um arquivo de dados. A apresentação pessoal e a trajetória existem diretamente no `index.astro` porque são blocos únicos, ligados ao desenho da página.
 
-Cursos, projetos e recomendações são listas. Eles ficam em `src/data`, pois cada item segue a mesma estrutura e pode ser renderizado com `map` ou `filter`:
+Cursos, formação, projetos e recomendações são listas. Eles ficam em `src/data`, pois cada item segue a mesma estrutura e pode ser renderizado com `map` ou `filter`:
 
 ```ts
 const completedCourses = courses.filter(
@@ -121,7 +121,7 @@ Pense no layout como uma moldura reutilizável. Ele cuida de assuntos que perten
 - favicon e manifesto;
 - dados estruturados `Person` para mecanismos de busca;
 - tema inicial claro ou escuro;
-- link de acessibilidade “Pular para o conteúdo”.
+- definição do conteúdo principal recebido pelo `<slot />`.
 
 O fluxo é:
 
@@ -159,18 +159,22 @@ Mostra os anos de experiência calculados desde janeiro de 2010. A regra de data
 
 ### `ProjectShowcase.astro`
 
-Importa `projects` de `src/data/projects.ts`, percorre a lista e cria os cards. O componente cuida da apresentação e da expansão; o arquivo de dados cuida do conteúdo.
+Importa `projects` de `src/data/projects.ts`, percorre a lista e cria os cards. O componente cuida da apresentação; o arquivo de dados cuida do conteúdo.
 
 ```text
 projects.ts
    ↓ lista tipada de projetos
 ProjectShowcase.astro
-   ↓ cards, botões, diagramas e detalhes
+   ↓ cards e links para os repositórios
 index.astro
    ↓ posiciona o conjunto na seção Projetos
 ```
 
-O script interno responde ao botão “Conheça o projeto”, atualizando painel, texto, ícone e `aria-expanded`.
+O link “Conheça o projeto” abre o repositório correspondente no GitHub.
+
+### `LimitedList.astro`
+
+Limita visualmente as listas de cursos, eventos e workshops a quatro itens. Quando há mais registros, calcula a altura dos quatro primeiros e disponibiliza uma rolagem vertical discreta.
 
 ### `RecommendationCarousel.astro`
 
@@ -186,30 +190,30 @@ Descobre as seções marcadas com `data-navigation-section` e controla as setas 
 
 ## 5. Por que a Mystic Coffee usa React
 
-`MagicBall.tsx` é o único componente React. Ele precisa guardar e coordenar vários estados durante a interação: ocioso, sacudindo, resposta exibida e resposta desaparecendo; além da frase, duração, gesto de arrastar, temporizadores e histórico recente.
+`MysticCoffee.tsx` é o único componente React. Ele precisa guardar e coordenar vários estados durante a interação: ocioso, sacudindo, resposta exibida e resposta desaparecendo; além da frase, duração, gesto de arrastar, temporizadores e histórico recente.
 
 No `index.astro`, ele aparece assim:
 
 ```astro
-<MagicBall client:visible />
+<MysticCoffee client:visible />
 ```
 
 `client:visible` é uma diretiva do Astro. O HTML inicial é entregue normalmente, mas o JavaScript do React só é ativado quando a seção se aproxima da área visível. Isso evita carregar interatividade antes de ela ser necessária.
 
 ```mermaid
 flowchart LR
-    Index[index.astro] --> Ball[MagicBall.tsx]
-    Ball --> Responses[data/magicResponses.ts]
-    Ball --> Logic[lib/magicBall.ts]
-    Ball --> CSS[MagicBall.css]
-    Logic --> Test[lib/magicBall.test.ts]
+    Index[index.astro] --> Ball[MysticCoffee.tsx]
+    Ball --> Responses[data/mysticResponses.ts]
+    Ball --> Logic[lib/mysticCoffee.ts]
+    Ball --> CSS[MysticCoffee.css]
+    Logic --> Test[lib/mysticCoffee.test.ts]
 ```
 
-- `magicResponses.ts` contém somente as frases;
-- `magicBall.ts` escolhe respostas e monta o ciclo de durações;
-- `MagicBall.tsx` coordena estado, eventos e tempo;
-- `MagicBall.css` desenha e anima a esfera;
-- `magicBall.test.ts` garante que a aleatoriedade controlada respeite as regras.
+- `mysticResponses.ts` contém somente as frases;
+- `mysticCoffee.ts` escolhe respostas e monta o ciclo de durações;
+- `MysticCoffee.tsx` coordena estado, eventos e tempo;
+- `MysticCoffee.css` desenha e anima a esfera;
+- `mysticCoffee.test.ts` garante que a aleatoriedade controlada respeite as regras.
 
 Essa separação permite alterar uma frase sem tocar na lógica, ou testar a lógica sem renderizar React.
 
@@ -229,7 +233,11 @@ Separa trecho visível, texto completo, iniciais, nome e cargo. `recommendations
 
 Cada curso possui título, instituição, período e estado. O `index.astro` usa o estado para separar concluídos e em andamento.
 
-### `magicResponses.ts`
+### `formation.ts`
+
+Reúne cursos superiores, livros, eventos e workshops. Mantém esse conteúdo editorial fora do `index.astro` e facilita a inclusão de novos registros.
+
+### `mysticResponses.ts`
 
 Lista imutável de respostas da Mystic Coffee. `as const` informa ao TypeScript que os textos são valores literais e não uma lista genérica de strings mutáveis.
 
@@ -241,7 +249,7 @@ Exemplos:
 
 - `experience.ts`: calcula anos completos desde a data inicial;
 - `carousel.ts`: limita índices e encontra o card mais próximo;
-- `magicBall.ts`: escolhe uma frase sem repetição imediata e embaralha durações.
+- `mysticCoffee.ts`: escolhe uma frase sem repetição imediata e embaralha durações.
 
 Esse estilo torna as regras pequenas e testáveis. Os arquivos com sufixo `.test.ts` são executados pelo Vitest com `npm test`.
 
@@ -254,7 +262,7 @@ tokens.css
    ↓ decisões do sistema visual
 global.css
    ↓ comportamento comum da página
-home.css / MagicBall.css / estilos dos componentes
+home.css / MysticCoffee.css / estilos dos componentes
    ↓ aparência específica
 ```
 
@@ -311,11 +319,11 @@ Executa testes `src/**/*.test.ts` no ambiente Node, adequado para regras que nã
 
 Exemplo: adicionar uma resposta à Mystic Coffee.
 
-1. Edite `src/data/magicResponses.ts`.
-2. `MagicBall.tsx` já importa essa lista.
-3. `src/lib/magicBall.ts` recebe a lista e escolhe a resposta.
-4. `MagicBall.tsx` guarda o resultado no estado e o renderiza.
-5. `MagicBall.css` controla como o texto aparece e desaparece.
+1. Edite `src/data/mysticResponses.ts`.
+2. `MysticCoffee.tsx` já importa essa lista.
+3. `src/lib/mysticCoffee.ts` recebe a lista e escolhe a resposta.
+4. `MysticCoffee.tsx` guarda o resultado no estado e o renderiza.
+5. `MysticCoffee.css` controla como o texto aparece e desaparece.
 6. `npm test` verifica a regra de seleção.
 7. `npm run build` confirma que Astro, React e TypeScript geram a página.
 
