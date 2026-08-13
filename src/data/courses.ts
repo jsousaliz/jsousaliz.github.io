@@ -25,7 +25,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -39,7 +39,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -53,7 +53,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -67,7 +67,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/narrative/chapter-1/devmedia-logo.jpg',
+        src: '/images/devmedia-logo.jpg',
         alt: 'DevMedia',
       },
     ],
@@ -79,7 +79,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -91,7 +91,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -103,7 +103,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],
@@ -115,7 +115,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/narrative/chapter-1/udemy-logo.svg',
+        src: '/images/udemy-logo.svg',
         alt: 'Udemy',
       },
     ],

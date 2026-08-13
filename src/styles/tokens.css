@@ -74,7 +74,7 @@
   --color-accent-soft: #4c2b20;
   --color-border: #334039;
   --color-border-strong: #526159;
-  --color-grid: rgb(174 185 178 / 14%);
+  --color-grid: rgb(174 185 178 / 8%);
   --color-focus: #69d1ae;
   --shadow-sm: 0 0.5rem 1.5rem rgb(0 0 0 / 18%);
   --shadow-lg: 0 1.5rem 4rem rgb(0 0 0 / 35%);
@@ -95,7 +95,7 @@
     --color-accent-soft: #4c2b20;
     --color-border: #334039;
     --color-border-strong: #526159;
-    --color-grid: rgb(174 185 178 / 14%);
+    --color-grid: rgb(174 185 178 / 8%);
     --color-focus: #69d1ae;
   }
 }

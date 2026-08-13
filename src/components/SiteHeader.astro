@@ -247,8 +247,13 @@ const navigation = [
 
     .navigation a {
       display: block;
+      width: fit-content;
       padding-block: 0.75rem;
       font-size: var(--text-base);
+    }
+
+    .navigation a::after {
+      bottom: 0.35rem;
     }
 
     .site-header[data-menu-open='true'] .navigation {

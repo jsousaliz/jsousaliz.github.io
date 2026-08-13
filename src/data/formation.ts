@@ -23,14 +23,14 @@ export const higherEducation: FormationItem[] = [
     title: 'Licenciatura em Matemática',
     institution: 'UNIPLAC',
     period: 'Dezembro de 2016',
-    icon: '/images/narrative/chapter-1/uniplac-logo-oficial.png',
+    icon: '/images/uniplac-logo-oficial.png',
     iconAlt: 'UNIPLAC',
   },
   {
     title: 'Ciência da Computação',
     institution: 'UNIFACVEST',
     period: 'Dezembro de 2011',
-    icon: '/images/narrative/chapter-1/unifacvest-logo-oficial.png',
+    icon: '/images/unifacvest-logo-oficial.png',
     iconAlt: 'Centro Universitário UNIFACVEST',
   },
 ];
@@ -38,19 +38,19 @@ export const higherEducation: FormationItem[] = [
 export const technicalBooks: Book[] = [
   {
     title: 'Clean Craftsmanship',
-    cover: '/images/narrative/chapter-1/clean-craftsmanship-capa.jpg',
+    cover: '/images/clean-craftsmanship-capa.jpg',
   },
   {
     title: 'Código Limpo',
-    cover: '/images/narrative/chapter-1/codigo-limpo-capa.jpg',
+    cover: '/images/codigo-limpo-capa.jpg',
   },
   {
     title: 'Arquitetura Limpa',
-    cover: '/images/narrative/chapter-1/arquitetura-limpa-capa.jpg',
+    cover: '/images/arquitetura-limpa-capa.jpg',
   },
   {
     title: 'O Programador Pragmático',
-    cover: '/images/narrative/chapter-1/o-programador-pragmático.jpg',
+    cover: '/images/o-programador-pragmático.jpg',
   },
 ];
 
@@ -59,20 +59,20 @@ export const technicalBooks: Book[] = [
 export const events: FormationActivity[] = [
   {
     period: 'Set 2024',
-    icon: '/images/narrative/chapter-1/proud-tech-summit-2024.jpg',
+    icon: '/images/proud-tech-summit-2024.jpg',
     titleLead: 'Proud Tech Summit:',
     titleDetail: 'Inovação e Inteligência Artificial',
   },
   {
     period: 'Out 2022',
-    icon: '/images/narrative/chapter-1/proud-tech-2022.jpg',
+    icon: '/images/proud-tech-2022.jpg',
     titleLead: 'Proud Tech:',
     titleDetail:
       'Conhecimento prático do dia a dia sobre Tecnologia, Produto e Carreira',
   },
   {
     period: 'Nov 2021',
-    icon: '/images/narrative/chapter-1/proud-tech-2021.jpg',
+    icon: '/images/proud-tech-2021.jpg',
     titleLead: 'Proud Tech:',
     titleDetail: 'Troca de conhecimento prático com foco técnico',
   },
@@ -81,7 +81,7 @@ export const events: FormationActivity[] = [
 export const workshops: FormationActivity[] = [
   {
     period: 'Set 2026',
-    icon: '/images/narrative/chapter-1/tech-leads-club.png',
+    icon: '/images/tech-leads-club.png',
     titleLead: 'Desenvolvimento',
     titleDetail: 'Assistido por IA',
   },

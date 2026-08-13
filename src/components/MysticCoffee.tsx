@@ -1,5 +1,6 @@
 import {
   type CSSProperties,
+  type MouseEvent,
   type PointerEvent,
   useEffect,
   useRef,
@@ -18,6 +19,7 @@ const REDUCED_MOTION_DURATION_MS = 120;
 const ANSWER_VISIBLE_DURATION_MS = 6000;
 const ANSWER_DISMISS_DURATION_MS = 1200;
 const DRAG_THRESHOLD_PX = 44;
+const HORIZONTAL_GESTURE_RATIO = 1.25;
 
 type InteractionState = 'idle' | 'shaking' | 'answered' | 'dismissing';
 
@@ -137,20 +139,22 @@ export default function MysticCoffee() {
     pointerStart.current = null;
     if (!start) return;
 
-    const distance = Math.hypot(
-      event.clientX - start.x,
-      event.clientY - start.y,
-    );
-    draggedBall.current = distance >= DRAG_THRESHOLD_PX;
+    const horizontalDistance = Math.abs(event.clientX - start.x);
+    const verticalDistance = Math.abs(event.clientY - start.y);
+    draggedBall.current =
+      horizontalDistance >= DRAG_THRESHOLD_PX &&
+      horizontalDistance >= verticalDistance * HORIZONTAL_GESTURE_RATIO;
     if (draggedBall.current) shake();
   }
 
-  function handleBallClick(): void {
+  function handleBallClick(event: MouseEvent<HTMLButtonElement>): void {
     if (draggedBall.current) {
       draggedBall.current = false;
       return;
     }
-    shake();
+
+    // Preserva Enter e Espaço, sem transformar um toque simples em sacudida.
+    if (event.detail === 0) shake();
   }
 
   const accessibleStatus =
@@ -195,6 +199,7 @@ export default function MysticCoffee() {
           onPointerUp={handlePointerUp}
           onPointerCancel={() => {
             pointerStart.current = null;
+            draggedBall.current = false;
           }}
         >
           <span className="mystic-orbit__window">
@@ -256,7 +261,7 @@ export default function MysticCoffee() {
             </span>
           </span>
         </button>
-        <p>Arraste a esfera, clique nela ou use o botão.</p>
+        <p>Arraste a esfera para os lados ou use o botão.</p>
       </div>
     </div>
   );

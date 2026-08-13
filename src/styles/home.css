@@ -1,6 +1,6 @@
 .hero {
   display: grid;
-  padding-top: calc(var(--header-height) + var(--space-7));
+  padding-top: calc(var(--header-height) + var(--space-3));
   padding-bottom: var(--space-7);
   align-items: start;
 }
@@ -51,7 +51,8 @@
 
 .hero__portrait {
   position: relative;
-  width: min(100%, 18rem);
+  width: min(100%, 16rem);
+  margin-top: var(--space-3);
   justify-self: start;
 }
 
@@ -744,7 +745,7 @@
   :is(.course-row__institution-logo, .course-row__icons img, .event-logo) {
   padding: 0.2rem;
   border-radius: 0.3rem;
-  background: rgb(255 255 255 / 50%);
+  background: rgb(255 255 255 / 60%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -752,7 +753,7 @@
     :is(.course-row__institution-logo, .course-row__icons img, .event-logo) {
     padding: 0.2rem;
     border-radius: 0.3rem;
-    background: rgb(255 255 255 / 50%);
+    background: rgb(255 255 255 / 60%);
   }
 }
 
@@ -833,8 +834,8 @@
 }
 
 .contact__actions .button__icon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.25rem;
+  height: 1.25rem;
   flex: 0 0 auto;
   object-fit: contain;
 }
@@ -922,7 +923,7 @@
 @media (max-width: 47.99rem) {
   .hero {
     min-height: auto;
-    padding-top: calc(var(--header-height) + var(--space-8));
+    padding-top: calc(var(--header-height) + var(--space-4));
     padding-bottom: var(--space-8);
   }
 
@@ -939,6 +940,10 @@
   .courses-group--current {
     padding-top: var(--space-6);
     padding-left: 0;
+  }
+
+  .formation-columns--courses {
+    margin-top: var(--space-4);
   }
 
   .technical-books {

@@ -115,7 +115,7 @@
   color: #c7f2e3;
   cursor: grab;
   place-items: center;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
 }
 
