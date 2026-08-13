@@ -5,6 +5,21 @@
 
   document.documentElement.dataset.enhanced = 'true';
 
+  document.addEventListener(
+    'keydown',
+    (event) => {
+      if (!(event.ctrlKey || event.metaKey)) return;
+      if (event.key !== 'Home' && event.key !== 'End') return;
+
+      event.preventDefault();
+      window.scrollTo({
+        top: event.key === 'Home' ? 0 : document.documentElement.scrollHeight,
+        behavior: 'auto',
+      });
+    },
+    { capture: true },
+  );
+
   if (reducedMotion || !('IntersectionObserver' in window)) {
     for (const element of revealElements) element.dataset.visible = 'true';
   } else {

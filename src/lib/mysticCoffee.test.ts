@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { createShuffledDurationCycle, pickRandomResponse } from './magicBall';
+import {
+  createShuffledDurationCycle,
+  pickRandomResponse,
+} from './mysticCoffee';
 
 describe('pickRandomResponse', () => {
   it('selects a response using the provided random value', () => {

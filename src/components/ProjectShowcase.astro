@@ -4,306 +4,68 @@ import { Image } from 'astro:assets';
 import { projects } from '@/data/projects';
 ---
 
-<div class="projects-grid" data-project-showcase>
+<div class="projects-grid">
   {
     projects.map((project) => (
-      <article
-        class:list={[
-          'project-card',
-          {
-            'project-card--featured': project.featured,
-            'project-card--portfolio': project.portfolio,
-          },
-        ]}
-        data-project-entry
-        data-reveal
-      >
-        <div class="project-card__summary">
-          <div class="project-card__meta">
-            <>
-              <span>{project.eyebrow}</span>
-              <span>{project.meta}</span>
-            </>
-          </div>
-
-          <div class="project-card__content-layout">
-            <div class="project-card__content">
-              <h3 id={`${project.slug}-title`}>{project.name}</h3>
-              <p>{project.summary}</p>
-            </div>
-
-            {project.logo && (
-              <Image
-                class="project-card__logo"
-                src={project.logo}
-                alt={`Logo do ${project.name}`}
-                loading="lazy"
-              />
-            )}
-          </div>
-
-          <ul class="project-highlights" aria-label="Destaques do projeto">
-            {project.highlights.map((highlight) => (
-              <li>{highlight}</li>
-            ))}
-          </ul>
-
-          <div class="project-card__actions">
-            <button
-              type="button"
-              aria-expanded="false"
-              aria-controls={`${project.slug}-case-study`}
-              data-project-toggle
-            >
-              <span data-project-open-label>
-                {project.portfolio
-                  ? 'Conheça os bastidores'
-                  : 'Conheça o projeto'}
-              </span>
-              <span data-project-close-label hidden>
-                Ocultar detalhes
-              </span>
-              <span aria-hidden="true" data-project-toggle-icon>
-                +
-              </span>
-            </button>
-
-            {project.repository ? (
-              <a href={project.repository} target="_blank" rel="noreferrer">
-                Ver no GitHub ↗
-              </a>
-            ) : (
-              <span class="project-card__status">
-                {project.repositoryStatus}
-              </span>
-            )}
-          </div>
+      <article class="project-card" data-reveal>
+        <div class="project-card__meta">
+          <span>{project.eyebrow}</span>
+          <span>{project.meta}</span>
         </div>
 
-        <section
-          class="project-case-study"
-          id={`${project.slug}-case-study`}
-          aria-labelledby={`${project.slug}-title`}
-          data-project-panel
-          hidden
-        >
-          <div
-            class="project-case-study__diagram"
-            aria-label="Diagrama do projeto"
-          >
-            {project.diagram === 'providers' && (
-              <div class="provider-diagram">
-                <span>Aplicação Delphi</span>
-                <strong>Daikit</strong>
-                <div>
-                  <span>OpenAI</span>
-                  <span>Anthropic</span>
-                  <span>Gemini</span>
-                </div>
-              </div>
-            )}
-
-            {project.diagram === 'amqp-stack' && (
-              <div class="stack-diagram">
-                <span>Aplicação Delphi</span>
-                <span>API pública</span>
-                <span>Conexões e canais</span>
-                <span>Frames AMQP 0-9-1</span>
-                <strong>TCP / WinSock → RabbitMQ</strong>
-              </div>
-            )}
-
-            {project.diagram === 'capture' && (
-              <div class="capture-diagram">
-                <div>
-                  <span>Monitor do apresentador</span>
-                  <strong>Roteiro visível</strong>
-                </div>
-                <span aria-hidden="true">→</span>
-                <div>
-                  <span>Prévia do OBS</span>
-                  <strong>Roteiro oculto</strong>
-                </div>
-              </div>
-            )}
-
-            {project.diagram === 'portfolio-flow' && (
-              <div class="portfolio-diagram">
-                <span>Entrevistar</span>
-                <i aria-hidden="true">→</i>
-                <span>Aprovar</span>
-                <i aria-hidden="true">→</i>
-                <span>Implementar</span>
-                <i aria-hidden="true">→</i>
-                <span>Validar</span>
-              </div>
-            )}
+        <div class="project-card__content-layout">
+          <div class="project-card__content">
+            <h3>{project.name}</h3>
+            <p>{project.summary}</p>
           </div>
 
-          <div class="project-case-study__content">
-            {project.sections.map((section) => (
-              <section>
-                <h4>{section.title}</h4>
-                {section.paragraphs.map((paragraph) => (
-                  <p>{paragraph}</p>
-                ))}
-              </section>
-            ))}
-          </div>
-
-          <footer class="project-technologies">
-            <strong>Tecnologias relacionadas</strong>
-            <ul>
-              {project.technologies.map((technology) => (
-                <li>{technology}</li>
-              ))}
-            </ul>
-          </footer>
-
-          {project.image && project.imageAlt && (
-            <figure class="project-case-study__media">
-              <a
-                href={project.image.src}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Abrir imagem completa do projeto ${project.name}`}
-              >
-                <img
-                  src={project.image.src}
-                  alt={project.imageAlt}
-                  width={project.image.width}
-                  height={project.image.height}
-                  loading="lazy"
-                />
-              </a>
-              {project.imageCaption && (
-                <figcaption>{project.imageCaption}</figcaption>
-              )}
-            </figure>
+          {project.logo && (
+            <Image
+              class="project-card__logo"
+              src={project.logo}
+              alt={`Logo do ${project.name}`}
+              loading="lazy"
+            />
           )}
-        </section>
+        </div>
+
+        <ul class="project-highlights" aria-label="Destaques do projeto">
+          {project.highlights.map((highlight) => (
+            <li>{highlight}</li>
+          ))}
+        </ul>
+
+        <a
+          class="project-card__link"
+          href={project.repository}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Conheça o projeto ↗
+        </a>
       </article>
     ))
   }
-
-  <aside class="collaboration-note collaboration-note--projects" data-reveal>
-    <div class="collaboration-note__content">
-      <strong>Construção aberta</strong>
-      <p>
-        Sugestões, issues e pull requests são bem-vindos nos meus projetos open
-        source.
-      </p>
-    </div>
-    <a href="https://github.com/jsousaliz" target="_blank" rel="noreferrer">
-      Conheça os repositórios ↗
-    </a>
-  </aside>
 </div>
-
-<script>
-  for (const showcase of document.querySelectorAll<HTMLElement>(
-    '[data-project-showcase]',
-  )) {
-    const entries = Array.from(
-      showcase.querySelectorAll<HTMLElement>('[data-project-entry]'),
-    );
-
-    function setExpanded(entry: HTMLElement, expanded: boolean): void {
-      const toggle = entry.querySelector<HTMLButtonElement>(
-        '[data-project-toggle]',
-      );
-      const panel = entry.querySelector<HTMLElement>('[data-project-panel]');
-      const openLabel = entry.querySelector<HTMLElement>(
-        '[data-project-open-label]',
-      );
-      const closeLabel = entry.querySelector<HTMLElement>(
-        '[data-project-close-label]',
-      );
-      const icon = entry.querySelector<HTMLElement>(
-        '[data-project-toggle-icon]',
-      );
-
-      if (!toggle || !panel) return;
-      toggle.ariaExpanded = String(expanded);
-      panel.hidden = !expanded;
-      if (openLabel) openLabel.hidden = expanded;
-      if (closeLabel) closeLabel.hidden = !expanded;
-      if (icon) icon.textContent = expanded ? '−' : '+';
-      entry.toggleAttribute('data-expanded', expanded);
-    }
-
-    for (const entry of entries) {
-      const toggle = entry.querySelector<HTMLButtonElement>(
-        '[data-project-toggle]',
-      );
-      if (!toggle) continue;
-
-      toggle.addEventListener('click', () => {
-        const willExpand = toggle.ariaExpanded !== 'true';
-        const positionBefore = entry.getBoundingClientRect().top;
-
-        for (const otherEntry of entries) setExpanded(otherEntry, false);
-        setExpanded(entry, willExpand);
-
-        requestAnimationFrame(() => {
-          const positionAfter = entry.getBoundingClientRect().top;
-          window.scrollBy({
-            top: positionAfter - positionBefore,
-            behavior: 'instant',
-          });
-        });
-      });
-    }
-  }
-</script>
 
 <style>
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
-    container-type: inline-size;
   }
 
   .project-card {
     display: grid;
-    overflow: hidden;
+    min-width: 0;
+    min-height: 15rem;
+    padding: var(--space-5);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     background: var(--color-surface);
     box-shadow: var(--shadow-sm);
-  }
-
-  .project-card--featured {
-    grid-column: 1 / -1;
-    background:
-      radial-gradient(
-        circle at 82% 16%,
-        var(--color-primary-soft),
-        transparent 32%
-      ),
-      var(--color-surface);
-  }
-
-  .project-card[data-expanded] {
-    grid-column: 1 / -1;
-  }
-
-  .project-card--portfolio {
-    background: var(--color-surface);
-  }
-
-  .project-card__summary {
-    display: grid;
-    min-width: 0;
-    min-height: 22rem;
-    padding: clamp(1.25rem, 2.5cqi, 2rem);
     align-content: space-between;
     gap: var(--space-5);
-  }
-
-  .project-card--featured .project-card__summary {
-    min-height: 25rem;
   }
 
   .project-card__meta {
@@ -320,24 +82,18 @@ import { projects } from '@/data/projects';
     text-transform: uppercase;
   }
 
-  .project-card__content {
-    display: grid;
-    min-width: 0;
-    max-width: 52rem;
-    gap: var(--space-4);
-  }
-
   .project-card__content-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     min-width: 0;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
-  .project-card__logo {
-    width: clamp(5rem, 11cqi, 8rem);
-    height: auto;
+  .project-card__content {
+    display: grid;
+    min-width: 0;
+    gap: var(--space-3);
   }
 
   .project-card__content h3 {
@@ -348,14 +104,17 @@ import { projects } from '@/data/projects';
     line-height: 1;
   }
 
-  .project-card__content p,
-  .collaboration-note p {
-    max-width: 62ch;
+  .project-card__content p {
     color: var(--color-text-muted);
+    font-size: var(--text-sm);
   }
 
-  .project-highlights,
-  .project-technologies ul {
+  .project-card__logo {
+    width: clamp(4rem, 7vw, 6rem);
+    height: auto;
+  }
+
+  .project-highlights {
     display: flex;
     min-width: 0;
     padding: 0;
@@ -364,8 +123,7 @@ import { projects } from '@/data/projects';
     list-style: none;
   }
 
-  .project-highlights li,
-  .project-technologies li {
+  .project-highlights li {
     max-width: 100%;
     padding: 0.35rem 0.65rem;
     border: 1px solid var(--color-border);
@@ -374,236 +132,29 @@ import { projects } from '@/data/projects';
     font-size: var(--text-xs);
   }
 
-  .project-card__actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-3) var(--space-5);
-  }
-
-  .project-card__actions button,
-  .project-card__actions a {
+  .project-card__link {
     width: fit-content;
-    border: 0;
     border-bottom: 1px solid currentColor;
-    background: transparent;
     color: var(--color-primary);
-    cursor: pointer;
     font-size: var(--text-sm);
     font-weight: 750;
     text-decoration: none;
     text-underline-offset: 0.35rem;
   }
 
-  .project-card__actions button {
-    display: inline-flex;
-    padding: 0;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .project-card__status {
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-  }
-
-  .project-case-study {
-    display: grid;
-    min-width: 0;
-    padding: clamp(1.25rem, 3vw, 2.5rem);
-    border-top: 1px solid var(--color-border);
-    gap: var(--space-7);
-  }
-
-  .project-case-study[hidden] {
-    display: none;
-  }
-
-  .project-case-study__diagram {
-    overflow: hidden;
-    min-width: 0;
-    padding: var(--space-6);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--color-primary-soft) 45%, transparent);
-  }
-
-  .project-case-study__media {
-    display: grid;
-    min-width: 0;
-    gap: var(--space-3);
-  }
-
-  .project-case-study__media a {
-    display: grid;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-3);
-    background: #fff;
-    place-items: center;
-  }
-
-  .project-case-study__media img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 34rem;
-    object-fit: contain;
-  }
-
-  .project-case-study__media figcaption {
-    color: var(--color-text-muted);
-    font-size: var(--text-xs);
-  }
-
-  .provider-diagram,
-  .stack-diagram,
-  .portfolio-diagram,
-  .capture-diagram {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-3);
-    text-align: center;
-  }
-
-  .provider-diagram > span,
-  .provider-diagram > strong,
-  .provider-diagram div span,
-  .stack-diagram span,
-  .stack-diagram strong,
-  .portfolio-diagram span,
-  .capture-diagram div {
-    padding: 0.65rem 1rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-surface);
-  }
-
-  .provider-diagram > strong {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-
-  .provider-diagram div {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .stack-diagram span:not(:first-child)::before {
-    display: block;
-    margin-bottom: var(--space-2);
-    color: var(--color-accent);
-    content: '↓';
-  }
-
-  .stack-diagram strong {
-    border-color: var(--color-primary);
-  }
-
-  .capture-diagram {
-    grid-template-columns: 1fr auto 1fr;
-  }
-
-  .capture-diagram div {
-    display: grid;
-    min-height: 8rem;
-    place-content: center;
-    gap: var(--space-2);
-  }
-
-  .capture-diagram div:last-child {
-    border-color: var(--color-primary);
-    background: var(--color-primary-soft);
-  }
-
-  .portfolio-diagram {
-    grid-template-columns: repeat(7, auto);
-  }
-
-  .portfolio-diagram i {
-    color: var(--color-accent);
-    font-style: normal;
-  }
-
-  .project-case-study__content {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    min-width: 0;
-    gap: var(--space-6);
-  }
-
-  .project-case-study__content section {
-    display: grid;
-    align-content: start;
-    gap: var(--space-3);
-  }
-
-  .project-case-study__content h4,
-  .project-technologies > strong,
-  .collaboration-note strong {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    line-height: 1.2;
-  }
-
-  .project-case-study__content p {
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-  }
-
-  .project-technologies {
-    display: grid;
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-border);
-    gap: var(--space-4);
-  }
-
-  .collaboration-note--projects {
-    display: grid;
-    padding: clamp(1.25rem, 2.5cqi, 2rem);
-    border: 1px dashed var(--color-border-strong);
-    border-radius: var(--radius-xl);
-    background: transparent;
-    align-content: center;
-    gap: var(--space-5);
-  }
-
-  .collaboration-note__content {
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .collaboration-note--projects a {
-    width: fit-content;
-    color: var(--color-primary);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-underline-offset: 0.3rem;
+  @media (max-width: 68rem) {
+    .projects-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 47.99rem) {
-    .projects-grid,
-    .project-case-study__content {
+    .projects-grid {
       grid-template-columns: 1fr;
     }
 
-    .project-card--featured {
-      grid-column: auto;
-    }
-
-    .project-card__summary,
-    .project-card--featured .project-card__summary {
+    .project-card {
       min-height: auto;
-    }
-
-    .project-card__meta {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: var(--space-1);
     }
 
     .project-card__content-layout {
@@ -613,16 +164,6 @@ import { projects } from '@/data/projects';
     .project-card__logo {
       grid-row: 1;
       width: 5rem;
-    }
-
-    .capture-diagram,
-    .portfolio-diagram {
-      grid-template-columns: 1fr;
-    }
-
-    .capture-diagram > span,
-    .portfolio-diagram i {
-      transform: rotate(90deg);
     }
   }
 </style>

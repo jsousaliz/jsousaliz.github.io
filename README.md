@@ -22,11 +22,12 @@ flowchart TD
     Index --> Layout[src/layouts/BaseLayout.astro]
     Index --> Components[src/components]
     Index --> Courses[src/data/courses.ts]
+    Index --> Formation[src/data/formation.ts]
     Index --> HomeCSS[src/styles/home.css]
     Layout --> GlobalCSS[fonts.css + tokens.css + global.css]
     Components --> ProjectData[src/data/projects.ts]
     Components --> RecommendationData[src/data/recommendations.ts]
-    Components --> MagicData[src/data/magicResponses.ts]
+    Components --> MysticData[src/data/mysticResponses.ts]
     Components --> Lib[src/lib]
     ProjectData --> Images[src/assets/images]
     Lib --> Tests[arquivos .test.ts]
@@ -69,8 +70,9 @@ Pastas geradas, como `node_modules/`, `.astro/` e `dist/`, não são código-fon
 | Alterar projetos                           | `src/data/projects.ts`                  |
 | Alterar recomendações                      | `src/data/recommendations.ts`           |
 | Alterar cursos                             | `src/data/courses.ts`                   |
-| Alterar frases da Mystic Coffee            | `src/data/magicResponses.ts`            |
-| Alterar o funcionamento da Mystic Coffee   | `src/components/MagicBall.tsx`          |
+| Alterar formação, livros e eventos         | `src/data/formation.ts`                 |
+| Alterar frases da Mystic Coffee            | `src/data/mysticResponses.ts`           |
+| Alterar o funcionamento da Mystic Coffee   | `src/components/MysticCoffee.tsx`       |
 | Alterar cores, fontes e medidas globais    | `src/styles/tokens.css`                 |
 | Alterar o layout da página inicial         | `src/styles/home.css`                   |
 | Alterar SEO, favicon ou metadados sociais  | `src/layouts/BaseLayout.astro`          |

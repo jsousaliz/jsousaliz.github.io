@@ -184,6 +184,7 @@ import { recommendations } from '@/data/recommendations';
     );
 
     carouselViewport.addEventListener('keydown', (event) => {
+      if (event.ctrlKey || event.metaKey) return;
       if (event.key === 'ArrowLeft') goTo(activeIndex - 1);
       else if (event.key === 'ArrowRight') goTo(activeIndex + 1);
       else if (event.key === 'Home') goTo(0);

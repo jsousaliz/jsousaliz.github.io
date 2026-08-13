@@ -6,12 +6,12 @@ import {
   useState,
 } from 'react';
 
-import { magicResponses } from '@/data/magicResponses';
+import { mysticResponses } from '@/data/mysticResponses';
 import {
   createShuffledDurationCycle,
   pickRandomResponse,
-} from '@/lib/magicBall';
-import './MagicBall.css';
+} from '@/lib/mysticCoffee';
+import './MysticCoffee.css';
 
 const SHAKE_DURATIONS_MS = [550, 900, 1300, 1800, 2400] as const;
 const REDUCED_MOTION_DURATION_MS = 120;
@@ -35,7 +35,7 @@ function browserRandom(): number {
   return randomValue / 2 ** 32;
 }
 
-export default function MagicBall() {
+export default function MysticCoffee() {
   const [answer, setAnswer] = useState('');
   const [interactionState, setInteractionState] =
     useState<InteractionState>('idle');
@@ -75,7 +75,7 @@ export default function MagicBall() {
 
     timeoutId.current = window.setTimeout(() => {
       const nextAnswer = pickRandomResponse(
-        magicResponses,
+        mysticResponses,
         recentAnswers.current,
         browserRandom,
       );
@@ -160,34 +160,31 @@ export default function MagicBall() {
         ? answer
         : 'A Mystic Coffee está pronta.';
   const ballStyle = {
-    '--magic-shake-duration': `${shakeDurationMs}ms`,
+    '--mystic-shake-duration': `${shakeDurationMs}ms`,
   } as CSSProperties;
 
   return (
-    <div className="magic-experience">
-      <div className="magic-experience__copy">
-        <p className="magic-experience__label">Mystic Coffee</p>
-        <h2 id="mystic-coffee-title">Sim, não ou talvez?</h2>
-        <p className="magic-experience__lead">
-          Pense em uma pergunta de sim ou não. Sacuda a bola e deixe o café
-          responder.
+    <div className="mystic-experience">
+      <div className="mystic-experience__copy">
+        <p className="mystic-experience__label">Mystic Coffee</p>
+        <h2 id="mystic-coffee-title">Pausa para descontrair</h2>
+        <p className="mystic-experience__lead">
+          Pense em uma pergunta de <strong>sim ou não</strong> e deixe o Mystic
+          Coffee responder. Não nos responsabilizamos pelo resultado 😅.
         </p>
         <button
-          className="magic-experience__action"
+          className="mystic-experience__action"
           type="button"
           disabled={!canShake}
           onClick={shake}
         >
           Sacudir
         </button>
-        <p className="magic-experience__note">
-          Sem IA, sem truques e sem responsabilidade pelo resultado.
-        </p>
       </div>
 
-      <div className="magic-orbit">
+      <div className="mystic-orbit">
         <button
-          className="magic-orbit__ball"
+          className="mystic-orbit__ball"
           type="button"
           disabled={!canShake}
           data-state={interactionState}
@@ -200,13 +197,13 @@ export default function MagicBall() {
             pointerStart.current = null;
           }}
         >
-          <span className="magic-orbit__window">
+          <span className="mystic-orbit__window">
             {(interactionState === 'idle' ||
               interactionState === 'dismissing') && (
               <img
-                className={`magic-orbit__coffee magic-orbit__coffee--initial${
+                className={`mystic-orbit__coffee mystic-orbit__coffee--initial${
                   interactionState === 'dismissing'
-                    ? ' magic-orbit__coffee--returning'
+                    ? ' mystic-orbit__coffee--returning'
                     : ''
                 }`}
                 src="/coffee-cup.svg"
@@ -219,7 +216,7 @@ export default function MagicBall() {
             )}
 
             {interactionState === 'shaking' && (
-              <span className="magic-orbit__sparkles" aria-hidden="true">
+              <span className="mystic-orbit__sparkles" aria-hidden="true">
                 <i>✦</i>
                 <i>✧</i>
                 <i>✦</i>
@@ -233,11 +230,11 @@ export default function MagicBall() {
             {(interactionState === 'answered' ||
               interactionState === 'dismissing') && (
               <span
-                className="magic-orbit__result"
+                className="mystic-orbit__result"
                 data-state={interactionState}
               >
                 <img
-                  className="magic-orbit__coffee magic-orbit__coffee--answer"
+                  className="mystic-orbit__coffee mystic-orbit__coffee--answer"
                   src="/coffee-cup.svg"
                   alt=""
                   aria-hidden="true"
@@ -245,7 +242,7 @@ export default function MagicBall() {
                   width={56}
                   height={56}
                 />
-                <span className="magic-orbit__answer">{answer}</span>
+                <span className="mystic-orbit__answer">{answer}</span>
               </span>
             )}
 
