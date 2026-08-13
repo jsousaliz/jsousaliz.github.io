@@ -17,6 +17,7 @@
   --color-accent-soft: #f1d8ca;
   --color-border: #d6d4c9;
   --color-border-strong: #b5bcb5;
+  --color-grid: rgb(82 96 88 / 10%);
   --color-focus: #176b55;
 
   --text-xs: clamp(0.72rem, 0.7rem + 0.08vw, 0.78rem);
@@ -73,6 +74,7 @@
   --color-accent-soft: #4c2b20;
   --color-border: #334039;
   --color-border-strong: #526159;
+  --color-grid: rgb(174 185 178 / 14%);
   --color-focus: #69d1ae;
   --shadow-sm: 0 0.5rem 1.5rem rgb(0 0 0 / 18%);
   --shadow-lg: 0 1.5rem 4rem rgb(0 0 0 / 35%);
@@ -93,6 +95,7 @@
     --color-accent-soft: #4c2b20;
     --color-border: #334039;
     --color-border-strong: #526159;
+    --color-grid: rgb(174 185 178 / 14%);
     --color-focus: #69d1ae;
   }
 }

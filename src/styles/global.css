@@ -48,8 +48,8 @@
     min-width: 20rem;
     min-height: 100vh;
     background:
-      linear-gradient(var(--color-border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-border) 1px, transparent 1px),
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px),
       var(--color-background);
     background-attachment: fixed;
     background-size: 4.5rem 4.5rem;
