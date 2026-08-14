@@ -46,7 +46,7 @@ import SiteHeader from '@/components/SiteHeader.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import '@/styles/home.css';
 
-const title = 'Jean Sousa Liz | Software Developer';
+const title = 'Jean Sousa Liz | Desenvolvedor de Software';
 ---
 ```
 
