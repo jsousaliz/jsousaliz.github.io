@@ -801,7 +801,7 @@
 }
 
 .contact h2 {
-  display: flex;
+  display: block;
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   font-weight: 540;
@@ -816,12 +816,14 @@
   display: inline-flex;
   flex: 0 0 auto;
   color: #f09a68;
+  margin-right: 0.2em;
 }
 
 .contact__coffee img {
   display: block;
   width: 1em;
   height: 1em;
+  transform: translateY(2px);
 }
 
 .contact p {
