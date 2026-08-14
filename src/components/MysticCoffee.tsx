@@ -215,6 +215,8 @@ export default function MysticCoffee() {
                 alt=""
                 aria-hidden="true"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
                 width={108}
                 height={108}
               />
@@ -244,6 +246,8 @@ export default function MysticCoffee() {
                   alt=""
                   aria-hidden="true"
                   draggable={false}
+                  loading="lazy"
+                  decoding="async"
                   width={56}
                   height={56}
                 />

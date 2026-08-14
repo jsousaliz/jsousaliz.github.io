@@ -400,7 +400,7 @@ const inProgressCourses = courses.filter(
                         {String(index + 1).padStart(2, '0')}
                       </span>
                       <div class="course-row__content course-row__content--illustrated">
-                        <img
+                        <Image
                           class="course-row__institution-logo"
                           data-institution={education.institution.toLowerCase()}
                           src={education.icon}
@@ -427,7 +427,7 @@ const inProgressCourses = courses.filter(
               <div class="technical-books">
                 {
                   technicalBooks.map((book) => (
-                    <img
+                    <Image
                       src={book.cover}
                       alt={`Capa do livro ${book.title}`}
                       loading="lazy"
@@ -453,7 +453,11 @@ const inProgressCourses = courses.filter(
                       <div class="course-row__content course-row__content--illustrated">
                         <span class="course-row__icons">
                           {course.icons?.map((icon) => (
-                            <img src={icon.src} alt={icon.alt} loading="lazy" />
+                            <Image
+                              src={icon.src}
+                              alt={icon.alt}
+                              loading="lazy"
+                            />
                           ))}
                         </span>
                         <div>
@@ -481,7 +485,7 @@ const inProgressCourses = courses.filter(
                         <div class="course-row__content course-row__content--illustrated">
                           <span class="course-row__icons">
                             {course.icons?.map((icon) => (
-                              <img
+                              <Image
                                 src={icon.src}
                                 alt={icon.alt}
                                 loading="lazy"
@@ -516,7 +520,7 @@ const inProgressCourses = courses.filter(
                     <li class="course-row">
                       <span class="course-row__index">{event.period}</span>
                       <div class="course-row__content course-row__content--illustrated">
-                        <img
+                        <Image
                           class="event-logo"
                           src={event.icon}
                           alt=""
@@ -542,7 +546,7 @@ const inProgressCourses = courses.filter(
                     <li class="course-row">
                       <span class="course-row__index">{workshop.period}</span>
                       <div class="course-row__content course-row__content--illustrated">
-                        <img
+                        <Image
                           class="event-logo"
                           src={workshop.icon}
                           alt=""
@@ -659,7 +663,7 @@ const inProgressCourses = courses.filter(
         <h2 id="contato-title">
           Vamos tomar um café?
           <span class="contact__coffee" aria-hidden="true">
-            <img src="/coffee-cup.svg" alt="" />
+            <Image src="/coffee-cup.svg" alt="" width={40} height={40} />
           </span>
         </h2>
         <p>
@@ -673,7 +677,13 @@ const inProgressCourses = courses.filter(
             target="_blank"
             rel="noreferrer"
           >
-            <img class="button__icon" src="/icons/social/linkedin.svg" alt="" />
+            <Image
+              class="button__icon"
+              src="/icons/social/linkedin.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
             Conversar no LinkedIn
           </a>
           <a
@@ -682,7 +692,13 @@ const inProgressCourses = courses.filter(
             target="_blank"
             rel="noreferrer"
           >
-            <img class="button__icon" src="/icons/social/github.svg" alt="" />
+            <Image
+              class="button__icon"
+              src="/icons/social/github.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
             Explorar meu GitHub
           </a>
           <a
@@ -691,7 +707,13 @@ const inProgressCourses = courses.filter(
             target="_blank"
             rel="noreferrer"
           >
-            <img class="button__icon" src="/icons/social/youtube.svg" alt="" />
+            <Image
+              class="button__icon"
+              src="/icons/social/youtube.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
             Canal no YouTube
           </a>
         </div>

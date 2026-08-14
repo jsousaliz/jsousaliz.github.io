@@ -6,42 +6,48 @@ interface Props {
 const { ariaLabel } = Astro.props;
 ---
 
-<ol
-  class="courses-list courses-list--compact courses-list--limited"
+<div
+  class="courses-list--limited"
   data-limited-list
+  role="region"
   aria-label={ariaLabel}
-  tabindex="-1"
 >
-  <slot />
-</ol>
+  <ol class="courses-list courses-list--compact">
+    <slot />
+  </ol>
+</div>
 
 <script>
   const visibleItems = 4;
 
   function updateLimitedLists(): void {
     document
-      .querySelectorAll<HTMLOListElement>('[data-limited-list]')
-      .forEach((list) => {
+      .querySelectorAll<HTMLElement>('[data-limited-list]')
+      .forEach((region) => {
+        const list = region.querySelector<HTMLOListElement>(':scope > ol');
+        if (!list) return;
+
         const items = Array.from(list.children).filter(
           (item): item is HTMLElement => item instanceof HTMLElement,
         );
         const isOverflowing = items.length > visibleItems;
 
-        list.classList.toggle('is-overflowing', isOverflowing);
-        list.tabIndex = isOverflowing ? 0 : -1;
+        region.classList.toggle('is-overflowing', isOverflowing);
+        if (isOverflowing) region.tabIndex = 0;
+        else region.removeAttribute('tabindex');
 
         if (!isOverflowing) {
-          list.style.removeProperty('--limited-list-height');
+          region.style.removeProperty('--limited-list-height');
           return;
         }
 
         const fourthItem = items[visibleItems - 1];
         if (!fourthItem) return;
 
-        const listTop = list.getBoundingClientRect().top;
+        const listTop = region.getBoundingClientRect().top;
         const fourthItemBottom = fourthItem.getBoundingClientRect().bottom;
         const visibleHeight = Math.ceil(fourthItemBottom - listTop);
-        list.style.setProperty('--limited-list-height', `${visibleHeight}px`);
+        region.style.setProperty('--limited-list-height', `${visibleHeight}px`);
       });
   }
 

@@ -1,3 +1,8 @@
+import type { ImageMetadata } from 'astro';
+
+import devmediaLogo from '@/assets/images/formation/devmedia-logo.jpg';
+import udemyLogo from '@/assets/images/formation/udemy-logo.svg';
+
 export type CourseStatus = 'completed' | 'in-progress';
 
 export interface Course {
@@ -8,7 +13,7 @@ export interface Course {
   periodShort?: string;
   status: CourseStatus;
   icons?: Array<{
-    src: string;
+    src: ImageMetadata;
     alt: string;
   }>;
 }
@@ -25,7 +30,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -39,7 +44,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -53,7 +58,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -67,7 +72,7 @@ export const courses: Course[] = [
     status: 'completed',
     icons: [
       {
-        src: '/images/devmedia-logo.jpg',
+        src: devmediaLogo,
         alt: 'DevMedia',
       },
     ],
@@ -79,7 +84,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -91,7 +96,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -103,7 +108,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
@@ -115,7 +120,7 @@ export const courses: Course[] = [
     status: 'in-progress',
     icons: [
       {
-        src: '/images/udemy-logo.svg',
+        src: udemyLogo,
         alt: 'Udemy',
       },
     ],
